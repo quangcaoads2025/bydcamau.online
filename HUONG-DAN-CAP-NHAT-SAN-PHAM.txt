@@ -1,0 +1,23 @@
+BYD THÀNH CÔNG CÀ MAU - HƯỚNG DẪN PHẦN SẢN PHẨM
+Cập nhật: 30/07/2026
+
+1. Dữ liệu của 10 mẫu xe nằm tại:
+   assets/js/data.js
+
+2. Giao diện thẻ xe nằm tại:
+   assets/js/components.js
+
+3. Tìm kiếm, lọc và phân trang sản phẩm nằm tại:
+   assets/js/app.js
+
+4. Trang chi tiết, phiên bản, màu xe, bảng thông số và catalog nằm tại:
+   assets/js/vehicle.js
+
+5. CSS của phần sản phẩm nằm cuối file:
+   assets/css/styles.css
+   Tìm tiêu đề: PRODUCT CATALOG UPGRADE - 30/07/2026
+
+LƯU Ý
+- Giá đang hiển thị là giá tham khảo và nên được đại lý kiểm tra trước khi xuất bản chương trình quảng cáo.
+- Nút catalog chỉ hiện ở mẫu có liên kết tài liệu công khai từ BYD.
+- Form đăng ký, hotline, địa chỉ và các phần khác của website được giữ nguyên.
