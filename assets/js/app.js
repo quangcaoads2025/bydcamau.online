@@ -114,20 +114,77 @@
   function initVehicleGrid() {
     const grid = qs('[data-vehicle-grid]');
     if (!grid) return;
-    grid.innerHTML = DATA.vehicles.map(COMPONENTS.renderVehicleCard).join('');
-    setImageFallbacks();
+
+    const priorityOrder = [
+      'byd-dolphin',
+      'byd-atto-2',
+      'byd-seal',
+      'byd-seal-5',
+      'byd-m6',
+      'byd-sealion-6',
+      'byd-han',
+      'byd-m9',
+      'byd-atto-3',
+      'byd-sealion-8'
+    ];
+    const priorityIndex = new Map(priorityOrder.map((slug, index) => [slug, index]));
+    const orderedVehicles = [...DATA.vehicles].sort((a, b) => {
+      const aIndex = priorityIndex.has(a.slug) ? priorityIndex.get(a.slug) : Number.MAX_SAFE_INTEGER;
+      const bIndex = priorityIndex.has(b.slug) ? priorityIndex.get(b.slug) : Number.MAX_SAFE_INTEGER;
+      return aIndex - bIndex;
+    });
+
+    const pagination = qs('[data-vehicle-pagination]');
+    const previousButton = qs('[data-vehicle-prev]');
+    const nextButton = qs('[data-vehicle-next]');
+    const status = qs('[data-vehicle-page-status]');
+    const pageSize = 6;
+    let activeFilter = 'all';
+    let currentPage = 0;
+
+    const filteredVehicles = () => orderedVehicles.filter(vehicle => {
+      const segment = vehicle.segment.toLowerCase();
+      const powertrain = vehicle.powertrain.toLowerCase();
+      return activeFilter === 'all' || segment === activeFilter || powertrain === activeFilter;
+    });
+
+    const renderPage = () => {
+      const vehicles = filteredVehicles();
+      const pageCount = Math.max(1, Math.ceil(vehicles.length / pageSize));
+      currentPage = Math.min(Math.max(currentPage, 0), pageCount - 1);
+      const start = currentPage * pageSize;
+      grid.innerHTML = vehicles.slice(start, start + pageSize).map(COMPONENTS.renderVehicleCard).join('');
+      setImageFallbacks();
+
+      if (pagination) pagination.hidden = pageCount <= 1;
+      if (previousButton) previousButton.disabled = currentPage === 0;
+      if (nextButton) nextButton.disabled = currentPage >= pageCount - 1;
+      if (status) status.textContent = `Trang ${currentPage + 1} / ${pageCount}`;
+    };
+
+    previousButton?.addEventListener('click', () => {
+      if (currentPage <= 0) return;
+      currentPage -= 1;
+      renderPage();
+    });
+    nextButton?.addEventListener('click', () => {
+      const pageCount = Math.max(1, Math.ceil(filteredVehicles().length / pageSize));
+      if (currentPage >= pageCount - 1) return;
+      currentPage += 1;
+      renderPage();
+    });
 
     qsa('[data-vehicle-filter]').forEach(button => {
       button.addEventListener('click', () => {
         qsa('[data-vehicle-filter]').forEach(btn => btn.classList.remove('is-active'));
         button.classList.add('is-active');
-        const filter = button.dataset.vehicleFilter;
-        qsa('.vehicle-card', grid).forEach(card => {
-          const match = filter === 'all' || card.dataset.segment === filter || card.dataset.powertrain === filter;
-          card.hidden = !match;
-        });
+        activeFilter = button.dataset.vehicleFilter;
+        currentPage = 0;
+        renderPage();
       });
     });
+
+    renderPage();
   }
 
   function initTechnologyCards() {

@@ -38,7 +38,7 @@
 
   function formatPhone(phone) {
     const clean = String(phone || '').replace(/\D/g, '');
-    if (clean.length === 10) return `${clean.slice(0, 4)} ${clean.slice(4, 7)} ${clean.slice(7)}`;
+    if (clean.length === 10) return `${clean.slice(0, 4)} ${clean.slice(4, 6)} ${clean.slice(6, 8)} ${clean.slice(8)}`;
     return phone;
   }
 
@@ -86,7 +86,7 @@
           </a>
           <nav class="main-nav" aria-label="Điều hướng chính">
             <a class="nav-link ${activePage === 'home' ? 'is-active' : ''}" href="/">Trang chủ</a>
-            <a class="nav-link" href="/#gioi-thieu">Giới thiệu</a>
+            <a class="nav-link ${activePage === 'about' ? 'is-active' : ''}" href="/gioi-thieu/">Giới thiệu</a>
             <div class="nav-item nav-item--mega">
               <button class="nav-link nav-link--button ${activePage === 'vehicles' ? 'is-active' : ''}" type="button" aria-expanded="false">Dòng xe ${icon('chevronDown')}</button>
               <div class="mega-menu" role="menu">
@@ -119,7 +119,7 @@
             <button type="button" class="mobile-menu__close" aria-label="Đóng menu">${icon('close')}</button>
           </div>
           <a href="/">Trang chủ</a>
-          <a href="/#gioi-thieu">Giới thiệu</a>
+          <a href="/gioi-thieu/">Giới thiệu</a>
           <details>
             <summary>Dòng xe ${icon('chevronDown')}</summary>
             <div class="mobile-menu__vehicles">${menuVehicles.map(v => `<a href="/san-pham/?slug=${v.slug}">${v.name}</a>`).join('')}</div>
