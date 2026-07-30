@@ -25,6 +25,9 @@
 /
   Cache-Control: public, max-age=0, must-revalidate
 
+/gioi-thieu/*
+  Cache-Control: public, max-age=0, must-revalidate
+
 /tram-sac/*
   Cache-Control: public, max-age=0, must-revalidate
 

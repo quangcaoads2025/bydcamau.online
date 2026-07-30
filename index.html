@@ -26,13 +26,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta content="https://bydcamau.online/" property="og:url"/>
 <meta content="https://bydcamau.online/assets/images/byd-ca-mau-social-share.jpg" property="og:image"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<link href="assets/css/styles.css?v=20260730-final" rel="stylesheet"/>
-<script defer="" src="assets/js/clean-url.js?v=20260730-final"></script>
-<script defer="" src="assets/js/config.js?v=20260730-final"></script>
-<script defer="" src="assets/js/data.js?v=20260730-final"></script>
-<script defer="" src="assets/js/components.js?v=20260730-final"></script>
-<script defer="" src="assets/js/form-submit-final.js?v=20260730-final"></script>
-<script defer="" src="assets/js/app.js?v=20260730-final"></script>
+<link href="assets/css/styles.css?v=20260730-contact-products-v2" rel="stylesheet"/>
+<script defer="" src="assets/js/clean-url.js?v=20260730-contact-products-v2"></script>
+<script defer="" src="assets/js/config.js?v=20260730-contact-products-v2"></script>
+<script defer="" src="assets/js/data.js?v=20260730-contact-products-v2"></script>
+<script defer="" src="assets/js/components.js?v=20260730-contact-products-v2"></script>
+<script defer="" src="assets/js/form-submit-final.js?v=20260730-contact-products-v2"></script>
+<script defer="" src="assets/js/app.js?v=20260730-contact-products-v2"></script>
 <meta content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" name="googlebot"/><meta content="BYD Thành Công Cà Mau" name="author"/><meta content="BYD Cà Mau" name="application-name"/><meta content="BYD Cà Mau" name="apple-mobile-web-app-title"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/><meta content="telephone=yes" name="format-detection"/><meta content="#ffffff" name="msapplication-TileColor"/><meta content="browserconfig.xml" name="msapplication-config"/><link href="https://bydcamau.online/assets/images/byd-ca-mau-social-share.jpg" rel="image_src"/><meta content="https://bydcamau.online/assets/images/byd-ca-mau-social-share.jpg" property="og:image:secure_url"/><meta content="image/jpeg" property="og:image:type"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="BYD Cà Mau - Bảng giá, ưu đãi, đăng ký lái thử và thông tin showroom" property="og:image:alt"/><meta content="BYD Cà Mau - Giá lăn bánh, Ưu Đãi &amp; Đăng Ký Lái Thử" name="twitter:title"/><meta content="BYD Cà Mau cập nhật bảng giá, giá lăn bánh, ưu đãi và hỗ trợ trả góp các mẫu xe BYD mới nhất. Đăng ký lái thử, gọi 0848 52 53 52." name="twitter:description"/><meta content="https://bydcamau.online/assets/images/byd-ca-mau-social-share.jpg" name="twitter:image"/><meta content="BYD Cà Mau - Bảng giá, ưu đãi, đăng ký lái thử và thông tin showroom" name="twitter:image:alt"/><link href="favicon.ico" rel="icon" sizes="any"/><link href="assets/images/favicon.svg" rel="icon" type="image/svg+xml"/><link href="assets/images/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/><link href="assets/images/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/><link href="assets/images/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/></head>
 <body data-page="home">
 <!-- Google Tag Manager (noscript) -->
@@ -144,6 +144,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 </div>
 <div class="vehicle-grid" data-vehicle-grid=""></div>
+<div class="vehicle-pagination" data-vehicle-pagination="" aria-label="Điều hướng danh sách sản phẩm">
+<button class="button button--outline button--small" data-vehicle-prev="" type="button">← Xem trước</button>
+<span class="vehicle-pagination__status" data-vehicle-page-status="" aria-live="polite">Trang 1 / 2</span>
+<button class="button button--outline button--small" data-vehicle-next="" type="button">Xem tiếp →</button>
+</div>
 </div>
 </section>
 <section class="section offer-section" id="khuyen-mai">
@@ -179,8 +184,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <label for="offer-vehicle">Dòng xe</label>
 <select id="offer-vehicle" name="vehicle" required="">
 <option value="">Chọn dòng xe</option>
-<option>BYD M9</option><option>BYD Seal 5 DM-i</option><option>BYD Atto 2</option><option>BYD Atto 3 Dynamic</option>
-<option>BYD Han</option><option>BYD M6</option><option>BYD Seal Advanced</option><option>BYD Seal Performance</option>
+<option>BYD Dolphin</option><option>BYD Atto 2</option><option>BYD Seal</option><option>BYD Seal 5</option>
+<option>BYD M6</option><option>BYD Sealion 6</option><option>BYD Han</option><option>BYD M9</option>
+<option>BYD Atto 3</option><option>BYD Sealion 8</option>
 </select>
 <small class="form-error"></small>
 </div>
@@ -194,28 +200,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <button class="button button--primary button--block" type="submit"><span>Gửi yêu cầu nhận ưu đãi</span></button>
 <div aria-live="polite" class="form-status" role="status"></div>
 </form>
-</div>
-</div>
-</section>
-<section class="section section--gray" id="gioi-thieu">
-<div class="container about-grid">
-<div class="about-visual" data-reveal="">
-<div class="about-visual__main"><img alt="Showroom BYD Thành Công Cà Mau" data-fallback="assets/images/showroom-launch.jpg" decoding="async" height="1000" loading="lazy" src="assets/images/showroom-launch.webp" width="1200"/></div>
-<div class="about-visual__badge"><strong>Showroom 4S</strong><span>Trải nghiệm, dịch vụ và hậu mãi tại Cà Mau</span></div>
-</div>
-<div class="about-content" data-reveal="">
-<span class="eyebrow">Về đại lý</span>
-<h2>Trải nghiệm BYD chuyên nghiệp, rõ ràng và thuận tiện</h2>
-<p>BYD Thành Công Cà Mau cung cấp điểm tiếp cận sản phẩm, tư vấn lựa chọn xe, đăng ký lái thử và hỗ trợ dịch vụ sau bán hàng. Mọi thông tin giá, ưu đãi và thời gian giao xe được xác nhận theo từng thời điểm.</p>
-<div class="commitments">
-<div class="commitment"><span class="commitment__icon">✓</span><div><strong>Giá tốt, minh bạch</strong><span>Xác nhận theo xe và thời điểm</span></div></div>
-<div class="commitment"><span class="commitment__icon">✓</span><div><strong>Giao xe chủ động</strong><span>Cập nhật tiến độ rõ ràng</span></div></div>
-<div class="commitment"><span class="commitment__icon">✓</span><div><strong>Lái thử thuận tiện</strong><span>Đặt lịch theo nhu cầu</span></div></div>
-<div class="commitment"><span class="commitment__icon">✓</span><div><strong>Hậu mãi chính hãng</strong><span>Bảo dưỡng và phụ tùng</span></div></div>
-</div>
-<div class="about-contact">
-<a aria-label="Gọi hotline kinh doanh" href="tel:0933570580"><span>☎</span><span>Hotline kinh doanh<br/><strong>0933 570 580</strong></span></a>
-</div>
 </div>
 </div>
 </section>
@@ -276,9 +260,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <h2>Đến Showroom BYD 4S</h2>
 <p>Không gian trưng bày, tư vấn, lái thử và dịch vụ hậu mãi tại trung tâm Cà Mau.</p>
 <div class="contact-list">
-<a class="contact-item" href="tel:0933570580"><span>☎</span><span><small>Hotline kinh doanh</small><strong>0933 570 580</strong></span></a>
-<a class="contact-item" href="tel:0936570580"><span>⚙</span><span><small>Hotline dịch vụ</small><strong>0936 570 580</strong></span></a>
-<a class="contact-item" href="mailto:bydthanhcong@bydthanhcongcm.vn"><span>✉</span><span><small>Email</small><strong>bydthanhcong@bydthanhcongcm.vn</strong></span></a>
+<a class="contact-item" href="tel:0848525352"><span>☎</span><span><small>Hotline kinh doanh</small><strong>0848 52 53 52</strong></span></a>
+<a class="contact-item" href="tel:0848525352"><span>⚙</span><span><small>Hotline dịch vụ</small><strong>0848 52 53 52</strong></span></a>
+<a class="contact-item" href="mailto:truyenthongsokm@gmail.com"><span>✉</span><span><small>Email</small><strong>truyenthongsokm@gmail.com</strong></span></a>
 </div>
 <div class="map-panel">
 <strong data-map-name="">Showroom BYD Thành Công Cà Mau 4S</strong>
