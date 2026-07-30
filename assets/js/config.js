@@ -16,13 +16,14 @@ window.BYD_CONFIG = Object.freeze({
   facebookUrl: 'https://www.facebook.com/bydthanhcong.vn/',
   youtubeUrl: 'https://www.youtube.com/@BYDThànhCôngCàMau',
   tiktokUrl: 'https://www.tiktok.com/@bydthanhcong',
-  formEndpoint: 'https://docs.google.com/forms/d/e/1FAIpQLSfV7hGUdxsPWhx6vxAo10RFjK1UdmzEPU6lLTKqml1yCam1vA/viewform',
-  googleFormFields: Object.freeze({
-    name: 'entry.1106886149',
-    phone: 'entry.1510643676',
-    vehicle: 'entry.1852135421',
-    area: 'entry.944411437'
-  }),
+formEndpoint: 'https://docs.google.com/forms/d/e/1FAIpQLSfV7hGUdxsPWhx6vxAo10RFjK1UdmzEPU6lLTKqml1yCam1vA/formResponse',
+
+googleFormFields: Object.freeze({
+  name: 'entry.1106886149',
+  phone: 'entry.1510643676',
+  vehicle: 'entry.1852135421',
+  area: 'entry.944411437'
+}),
   formCooldownSeconds: 5,
   defaultArea: 'Cà Mau',
   showrooms: {
