@@ -4240,3 +4240,63 @@ body.lightbox-open { overflow: hidden; }
   .vehicle-summary__colors--mobile .color-swatch-catalog span { display: inline; }
   .vehicle-summary__colors--mobile .color-swatch-catalog { padding-right: 12px; }
 }
+
+/* ===== Media lightbox iOS close/safe-area hotfix v41 ===== */
+.media-lightbox {
+  overscroll-behavior: contain;
+  touch-action: manipulation;
+}
+.media-lightbox__dialog {
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.media-lightbox__top {
+  position: relative;
+  z-index: 20;
+  flex: 0 0 auto;
+}
+.media-lightbox__top button[data-close-lightbox] {
+  position: relative;
+  z-index: 30;
+  min-width: 48px;
+  min-height: 48px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.media-lightbox__stage {
+  min-height: 0;
+}
+body.lightbox-open {
+  overflow: hidden !important;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+}
+@media (max-width: 640px) {
+  .media-lightbox__dialog {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    width: 100dvw;
+    height: 100vh;
+    height: 100dvh;
+  }
+  .media-lightbox__top {
+    height: auto;
+    min-height: 62px;
+    padding: 8px max(14px, env(safe-area-inset-right, 0px)) 8px max(14px, env(safe-area-inset-left, 0px));
+  }
+  .media-lightbox__top strong {
+    max-width: 52vw;
+  }
+  .media-lightbox__stage {
+    flex: 1 1 auto;
+    height: auto;
+  }
+  .media-lightbox__top button[data-close-lightbox] {
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+  }
+}
