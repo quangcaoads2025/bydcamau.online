@@ -329,16 +329,23 @@
       image.alt = `${vehicle.name} - hình ${index + 1}`;
       if (counter) counter.textContent = `${index + 1} / ${media.length}`;
     };
+    let scrollY = 0;
     const open = nextIndex => {
       show(nextIndex);
+      scrollY = window.scrollY || document.documentElement.scrollTop || 0;
       box.classList.add('is-open');
       box.setAttribute('aria-hidden', 'false');
+      document.body.style.top = `-${scrollY}px`;
       document.body.classList.add('lightbox-open');
     };
-    const close = () => {
+    const close = event => {
+      event?.preventDefault?.();
+      event?.stopPropagation?.();
       box.classList.remove('is-open');
       box.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('lightbox-open');
+      document.body.style.top = '';
+      window.scrollTo(0, scrollY);
     };
     qsa('[data-open-lightbox]').forEach(button => button.addEventListener('click', () => {
       if (button.dataset.mediaSrc) {
@@ -346,7 +353,15 @@
         open(found >= 0 ? found : 0);
       } else open(Number(button.dataset.lightboxIndex || 0));
     }));
-    qsa('[data-close-lightbox]').forEach(button => button.addEventListener('click', close));
+    qsa('[data-close-lightbox]').forEach(button => {
+      button.addEventListener('click', close);
+      button.addEventListener('pointerup', close);
+      button.addEventListener('touchend', close, { passive: false });
+    });
+    // Event delegation in capture phase makes the close action reliable in iOS standalone mode.
+    box.addEventListener('click', event => {
+      if (event.target.closest('[data-close-lightbox]')) close(event);
+    }, true);
     qs('[data-lightbox-prev]')?.addEventListener('click', () => show(index - 1));
     qs('[data-lightbox-next]')?.addEventListener('click', () => show(index + 1));
     document.addEventListener('keydown', event => {
