@@ -1,5 +1,5 @@
 BYD THÀNH CÔNG CÀ MAU - HƯỚNG DẪN PHẦN SẢN PHẨM
-Cập nhật: 30/07/2026
+Cập nhật: 31/07/2026
 
 1. Dữ liệu của 10 mẫu xe nằm tại:
    assets/js/data.js
@@ -21,3 +21,16 @@ LƯU Ý
 - Giá đang hiển thị là giá tham khảo và nên được đại lý kiểm tra trước khi xuất bản chương trình quảng cáo.
 - Nút catalog chỉ hiện ở mẫu có liên kết tài liệu công khai từ BYD.
 - Form đăng ký, hotline, địa chỉ và các phần khác của website được giữ nguyên.
+
+CẬP NHẬT CATALOG V14
+- Catalog nội bộ nằm tại: assets/catalogs/
+- Tên file thực tế: byd-atto-2.pdf, byd-atto-3.pdf, byd-dolphin.pdf, byd-han.pdf, byd-m6.pdf, byd-m9.pdf, byd-seal-5.pdf, byd-seal.pdf, byd-sealion-6.pdf và byd-sealion-8.pdf.
+- Các PDF là tài liệu giới thiệu sản phẩm được tạo từ dữ liệu đang có trong website.
+- Khi có catalog chính thức mới, chỉ cần thay file PDF cùng tên để không phải sửa mã nguồn.
+
+
+CẬP NHẬT ẢNH XE V16
+- Toàn bộ ảnh xe nằm tại assets/images/vehicles/<ten-xe>/.
+- Mỗi xe có card.webp cho thẻ sản phẩm và hero.webp cho trang chi tiết.
+- Không còn sử dụng ảnh xe từ đường dẫn website bên ngoài.
+- Không cần chạy file BAT hoặc PowerShell để tải ảnh.
