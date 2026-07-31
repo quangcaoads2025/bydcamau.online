@@ -10,12 +10,12 @@ const BYD_VEHICLE_ORDER = Object.freeze({
   "byd-atto-2": 3, // BYD ATTO 2
   "byd-sealion-5": 4, // BYD SEALION 5
   "byd-seal-5": 5, // BYD SEAL 5
-  "byd-sealion-6": 6, // BYD SEALION 6
-  "byd-m9": 7, // BYD M9
+  "byd-sealion-6": 9, // BYD SEALION 6
+  "byd-m9": 11, // BYD M9
   "byd-atto-3": 8, // BYD ATTO 3
-  "byd-seal": 9, // BYD SEAL
-  "byd-han": 10, // BYD HAN
-  "byd-sealion-8": 11, // BYD SEALION 8
+  "byd-seal": 7, // BYD SEAL
+  "byd-han": 6, // BYD HAN
+  "byd-sealion-8": 10, // BYD SEALION 8
 });
 /* ================= HẾT CẤU HÌNH THỨ TỰ XE ================= */
 
