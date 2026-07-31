@@ -43,7 +43,7 @@
   }
 
   function vehicleImage(vehicle, className = '') {
-    return `<img class="${className}" src="${vehicle.image}" data-fallback="${vehicle.image}" alt="${vehicle.name} tại BYD Thành Công Cà Mau" width="640" height="360" loading="lazy" decoding="async">`;
+    return `<img class="${className}" src="${vehicle.cardRemote || vehicle.image}" data-fallback="${vehicle.image}" alt="${vehicle.name} tại BYD Thành Công Cà Mau" width="640" height="360" loading="lazy" decoding="async">`;
   }
 
   function renderTopbar() {
@@ -134,24 +134,40 @@
   }
 
   function renderVehicleCard(vehicle) {
-    const specs = vehicle.specs.slice(0, 3).map(spec => `<li><span>${spec.label}</span><strong>${spec.value}</strong></li>`).join('');
+    const specs = (vehicle.specs || []).slice(0, 3).map(spec => `<li><span>${spec.label}</span><strong>${spec.value}</strong></li>`).join('');
+    const highlights = (vehicle.cardHighlights || vehicle.highlights || []).slice(0, 3).map(item => `<span>${COMPONENTS_SAFE_TEXT(item)}</span>`).join('');
+    const variantText = vehicle.variants?.length > 1 ? `${vehicle.variants.length} phiên bản` : (vehicle.variants?.[0]?.name || 'Nhận tư vấn');
+    const searchText = [vehicle.name, vehicle.segment, vehicle.powertrain, vehicle.tagline, ...(vehicle.badges || [])].join(' ').toLowerCase();
     return `
-      <article class="vehicle-card" data-segment="${vehicle.segment.toLowerCase()}" data-powertrain="${vehicle.powertrain.toLowerCase()}">
+      <article class="vehicle-card vehicle-card--catalog" data-segment="${vehicle.segment.toLowerCase()}" data-powertrain="${vehicle.powertrain.toLowerCase()}" data-vehicle-search="${searchText}">
         <div class="vehicle-card__visual">
           <div class="vehicle-card__badges">${vehicle.badges.map(b => `<span>${b}</span>`).join('')}</div>
+          <span class="vehicle-card__availability"><i></i>${vehicle.availability || 'Đang nhận tư vấn'}</span>
           <a href="/san-pham/?slug=${vehicle.slug}" aria-label="Xem chi tiết ${vehicle.name}">${vehicleImage(vehicle, 'vehicle-card__image')}</a>
         </div>
         <div class="vehicle-card__body">
-          <p class="vehicle-card__type">${vehicle.segment} · ${vehicle.powertrain === 'EV' ? 'Thuần điện' : 'Super Hybrid'}</p>
+          <div class="vehicle-card__meta">
+            <p class="vehicle-card__type">${vehicle.segment} · ${vehicle.powertrain === 'EV' ? 'Thuần điện' : 'DM-i Super Hybrid'}</p>
+            <span>${variantText}</span>
+          </div>
           <h3><a href="/san-pham/?slug=${vehicle.slug}">${vehicle.name}</a></h3>
-          <p class="vehicle-card__price">${vehicle.priceLabel}</p>
+          <p class="vehicle-card__tagline">${vehicle.tagline || vehicle.shortDescription}</p>
+          <div class="vehicle-card__price-row">
+            <div><small>Giá tham khảo</small><p class="vehicle-card__price">${vehicle.priceLabel}</p></div>
+            <button class="vehicle-card__quick-lead" type="button" data-open-modal="lead" data-vehicle="${vehicle.name}" data-intent="Nhận báo giá ${vehicle.name}">Nhận giá tốt</button>
+          </div>
+          <div class="vehicle-card__highlights">${highlights}</div>
           <ul class="vehicle-card__specs">${specs}</ul>
           <div class="vehicle-card__actions">
-            <a class="button button--outline button--small" href="/san-pham/?slug=${vehicle.slug}">Xem chi tiết</a>
-            <button class="button button--ghost button--small" data-open-modal="lead" data-vehicle="${vehicle.name}" data-intent="Nhận ưu đãi">Nhận ưu đãi</button>
+            <a class="button button--dark button--small" href="/san-pham/?slug=${vehicle.slug}">Khám phá xe</a>
+            <button class="button button--outline button--small" data-open-modal="lead" data-vehicle="${vehicle.name}" data-intent="Đăng ký lái thử ${vehicle.name}">Lái thử</button>
           </div>
         </div>
       </article>`;
+  }
+
+  function COMPONENTS_SAFE_TEXT(value) {
+    return String(value || '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
   }
 
   function renderFooter() {
@@ -213,7 +229,7 @@
           <span class="contact-fab__label">Gọi điện</span>
         </a>
         <a href="${CONFIG.zaloUrl}" target="_blank" rel="noopener" class="contact-fab contact-fab--zalo" aria-label="Chat Zalo">
-          <span class="contact-fab__core"><img src="assets/images/contact/zalo-contact-original.png?v=11" alt="" width="36" height="36"></span>
+          <span class="contact-fab__core"><img src="assets/images/social/zalo.png?v=20" alt="" width="36" height="36"></span>
           <span class="contact-fab__label">Zalo</span>
         </a>
         <a href="${CONFIG.messengerUrl}" target="_blank" rel="noopener" class="contact-fab contact-fab--messenger" aria-label="Chat Messenger">

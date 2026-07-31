@@ -115,73 +115,108 @@
     const grid = qs('[data-vehicle-grid]');
     if (!grid) return;
 
-    const priorityOrder = [
-      'byd-dolphin',
-      'byd-atto-2',
-      'byd-seal',
-      'byd-seal-5',
-      'byd-m6',
-      'byd-sealion-6',
-      'byd-han',
-      'byd-m9',
-      'byd-atto-3',
-      'byd-sealion-8'
-    ];
-    const priorityIndex = new Map(priorityOrder.map((slug, index) => [slug, index]));
-    const orderedVehicles = [...DATA.vehicles].sort((a, b) => {
-      const aIndex = priorityIndex.has(a.slug) ? priorityIndex.get(a.slug) : Number.MAX_SAFE_INTEGER;
-      const bIndex = priorityIndex.has(b.slug) ? priorityIndex.get(b.slug) : Number.MAX_SAFE_INTEGER;
-      return aIndex - bIndex;
-    });
-
+    const orderedVehicles = [...DATA.vehicles];
     const pagination = qs('[data-vehicle-pagination]');
     const previousButton = qs('[data-vehicle-prev]');
     const nextButton = qs('[data-vehicle-next]');
     const status = qs('[data-vehicle-page-status]');
+    const searchInput = qs('[data-vehicle-search-input]');
+    const resultCount = qs('[data-vehicle-result-count]');
     const pageSize = 6;
     let activeFilter = 'all';
+    let searchTerm = '';
     let currentPage = 0;
 
+    const normalize = value => String(value || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+
     const filteredVehicles = () => orderedVehicles.filter(vehicle => {
-      const segment = vehicle.segment.toLowerCase();
-      const powertrain = vehicle.powertrain.toLowerCase();
-      return activeFilter === 'all' || segment === activeFilter || powertrain === activeFilter;
+      const segment = normalize(vehicle.segment);
+      const powertrain = normalize(vehicle.powertrain);
+      const filterMatch = activeFilter === 'all' || segment === activeFilter || powertrain === activeFilter;
+      const searchable = normalize([
+        vehicle.name,
+        vehicle.segment,
+        vehicle.powertrain,
+        vehicle.tagline,
+        vehicle.shortDescription,
+        ...(vehicle.badges || []),
+        ...(vehicle.highlights || []),
+        ...(vehicle.variants || []).map(item => item.name)
+      ].join(' '));
+      const searchMatch = !searchTerm || searchable.includes(searchTerm);
+      return filterMatch && searchMatch;
     });
+
+    const renderEmpty = () => {
+      grid.innerHTML = `
+        <div class="vehicle-empty-state">
+          <strong>Chưa tìm thấy mẫu xe phù hợp</strong>
+          <p>Thử đổi từ khóa hoặc chọn lại bộ lọc “Tất cả”.</p>
+          <button class="button button--outline button--small" type="button" data-reset-vehicle-search>Đặt lại tìm kiếm</button>
+        </div>`;
+      qs('[data-reset-vehicle-search]')?.addEventListener('click', () => {
+        activeFilter = 'all';
+        searchTerm = '';
+        if (searchInput) searchInput.value = '';
+        qsa('[data-vehicle-filter]').forEach(btn => btn.classList.toggle('is-active', btn.dataset.vehicleFilter === 'all'));
+        currentPage = 0;
+        renderPage();
+      });
+    };
 
     const renderPage = () => {
       const vehicles = filteredVehicles();
       const pageCount = Math.max(1, Math.ceil(vehicles.length / pageSize));
       currentPage = Math.min(Math.max(currentPage, 0), pageCount - 1);
       const start = currentPage * pageSize;
-      grid.innerHTML = vehicles.slice(start, start + pageSize).map(COMPONENTS.renderVehicleCard).join('');
-      setImageFallbacks();
 
-      if (pagination) pagination.hidden = pageCount <= 1;
+      if (vehicles.length) {
+        grid.innerHTML = vehicles.slice(start, start + pageSize).map(COMPONENTS.renderVehicleCard).join('');
+        setImageFallbacks();
+      } else {
+        renderEmpty();
+      }
+
+      if (pagination) pagination.hidden = vehicles.length === 0 || pageCount <= 1;
       if (previousButton) previousButton.disabled = currentPage === 0;
       if (nextButton) nextButton.disabled = currentPage >= pageCount - 1;
       if (status) status.textContent = `Trang ${currentPage + 1} / ${pageCount}`;
+      if (resultCount) resultCount.textContent = `${vehicles.length} mẫu xe`;
     };
 
     previousButton?.addEventListener('click', () => {
       if (currentPage <= 0) return;
       currentPage -= 1;
       renderPage();
+      grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+
     nextButton?.addEventListener('click', () => {
       const pageCount = Math.max(1, Math.ceil(filteredVehicles().length / pageSize));
       if (currentPage >= pageCount - 1) return;
       currentPage += 1;
       renderPage();
+      grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
     qsa('[data-vehicle-filter]').forEach(button => {
       button.addEventListener('click', () => {
         qsa('[data-vehicle-filter]').forEach(btn => btn.classList.remove('is-active'));
         button.classList.add('is-active');
-        activeFilter = button.dataset.vehicleFilter;
+        activeFilter = normalize(button.dataset.vehicleFilter);
         currentPage = 0;
         renderPage();
       });
+    });
+
+    searchInput?.addEventListener('input', event => {
+      searchTerm = normalize(event.target.value);
+      currentPage = 0;
+      renderPage();
     });
 
     renderPage();
