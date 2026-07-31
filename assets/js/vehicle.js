@@ -105,11 +105,11 @@
       </div>`;
   }
 
-  function renderColors(vehicle) {
+  function renderColors(vehicle, placement = 'summary') {
     const colors = vehicle.colorOptions || [];
     if (!colors.length) return '';
     return `
-      <div class="vehicle-summary__colors vehicle-summary__colors--catalog">
+      <div class="vehicle-summary__colors vehicle-summary__colors--catalog vehicle-summary__colors--${placement}">
         <div class="vehicle-option-heading">
           <span>Màu ngoại thất</span>
           <strong data-selected-color-name>${escapeHtml(colors[0]?.name || '')}</strong>
@@ -231,14 +231,15 @@
     target.innerHTML = `
       <section class="vehicle-breadcrumb container" aria-label="Breadcrumb"><a href="/">Trang chủ</a><span>/</span><a href="/#vehicles">Dòng xe</a><span>/</span><strong>${escapeHtml(vehicle.name)}</strong></section>
       <section class="vehicle-hero-section vehicle-hero-section--source">
-        <div class="container vehicle-hero-grid">${renderGallery(vehicle)}
+        <div class="container vehicle-hero-grid">
+          <div class="vehicle-gallery-column">${renderGallery(vehicle)}${renderColors(vehicle, 'mobile')}</div>
           <div class="vehicle-summary vehicle-summary--catalog">
             <div class="vehicle-summary__topline"><span class="eyebrow">${escapeHtml(vehicle.segment)} · ${vehicle.powertrain === 'EV' ? 'Thuần điện' : 'DM-i Super Hybrid'}</span><span class="vehicle-summary__availability">${escapeHtml(vehicle.availability || '')}</span></div>
             <h1>${escapeHtml(vehicle.name)}</h1>
             <p class="vehicle-summary__tagline">${escapeHtml(vehicle.tagline || '')}</p>
             <div class="vehicle-summary__price-box"><div><small>Giá tham khảo</small><p class="vehicle-summary__price" data-selected-variant-price>${escapeHtml(selectedPrice)}</p></div><span data-selected-variant-name>${escapeHtml(selectedVariant)}</span></div>
             <p class="vehicle-summary__description">${escapeHtml(vehicle.shortDescription)}</p>
-            ${renderVariants(vehicle)}${renderColors(vehicle)}
+            ${renderVariants(vehicle)}${renderColors(vehicle, 'summary')}
             <div class="vehicle-summary__actions vehicle-summary__actions--catalog"><button class="button button--primary" data-open-modal="lead" data-vehicle="${escapeHtml(vehicle.name)}" data-intent="Nhận báo giá ${escapeHtml(vehicle.name)}" data-vehicle-lead>Nhận báo giá</button><button class="button button--dark" data-open-modal="lead" data-vehicle="${escapeHtml(vehicle.name)}" data-intent="Đăng ký lái thử ${escapeHtml(vehicle.name)}" data-vehicle-lead>Đăng ký lái thử</button>${brochureLink}</div>
             <div class="vehicle-summary__reference-actions">${officialLink}<button class="text-link text-link--button" data-open-modal="calculator" data-price="${vehicle.price || ''}">Tính giá lăn bánh ${COMPONENTS.icon('chevronRight')}</button></div>
             <a class="vehicle-summary__hotline" href="tel:${CONFIG.hotlineSales}">${COMPONENTS.icon('phone')}<span><small>Hotline tư vấn</small><strong>${COMPONENTS.formatPhone(CONFIG.hotlineSales)}</strong></span></a>
@@ -287,11 +288,12 @@
     const gallery = qs('[data-vehicle-gallery]');
     const main = qs('.vehicle-gallery__main img');
     qsa('[data-vehicle-color]').forEach(button => button.addEventListener('click', () => {
-      qsa('[data-vehicle-color]').forEach(item => item.classList.remove('is-active'));
-      button.classList.add('is-active');
+      qsa('[data-vehicle-color]').forEach(item => {
+        item.classList.toggle('is-active', item.dataset.vehicleColor === button.dataset.vehicleColor);
+      });
       const name = button.dataset.vehicleColor || '';
-      if (qs('[data-selected-color-name]')) qs('[data-selected-color-name]').textContent = name;
-      if (qs('[data-selected-color-label]')) qs('[data-selected-color-label]').textContent = name;
+      qsa('[data-selected-color-name]').forEach(item => { item.textContent = name; });
+      qsa('[data-selected-color-label]').forEach(item => { item.textContent = name; });
       gallery?.style.setProperty('--active-vehicle-color', button.dataset.vehicleColorHex || '#e60012');
       if (main && button.dataset.colorImage) {
         main.src = button.dataset.colorImage;
