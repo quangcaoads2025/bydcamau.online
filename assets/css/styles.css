@@ -3970,35 +3970,41 @@ body.lightbox-open { overflow: hidden; }
 }
 /* ===== MOBILE HEADING SYSTEM V27 END ===== */
 
-/* ===== PRODUCT CARDS FINAL RESPONSIVE v34 START ===== */
+/* ===== PRODUCT CARDS FINAL RESPONSIVE v36 START ===== */
 .vehicle-card--catalog .vehicle-card__visual {
   position: relative;
   display: grid;
   place-items: center;
   height: 290px;
   min-height: 290px;
-  padding: 48px 12px 10px;
+  padding: 0;
   overflow: hidden;
-  background: linear-gradient(145deg,#f7f8f9,#fff);
+  background: linear-gradient(145deg, #f7f8f9, #fff);
 }
 .vehicle-card--catalog .vehicle-card__visual > a {
-  position: static !important;
+  position: relative !important;
+  z-index: 2;
   display: grid !important;
-  place-items: end center !important;
   width: 100% !important;
+  min-width: 0;
   height: 100% !important;
-  padding: 0 !important;
-  overflow: visible !important;
+  min-height: 0;
+  place-items: center !important;
+  padding: 48px 12px 12px !important;
+  overflow: hidden !important;
+  box-sizing: border-box;
 }
 .vehicle-card--catalog .vehicle-card__image,
 .vehicle-card--catalog img.vehicle-card__image {
   display: block !important;
-  width: 100% !important;
-  height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
   max-width: 100% !important;
   max-height: 100% !important;
   object-fit: contain !important;
-  object-position: center bottom !important;
+  object-position: center !important;
   margin: 0 auto !important;
   transform: none !important;
 }
@@ -4006,17 +4012,20 @@ body.lightbox-open { overflow: hidden; }
 .vehicle-card--catalog h3 { font-size: 1.45rem; line-height: 1.15; }
 
 @media (max-width: 1100px) {
-  .vehicle-card--catalog .vehicle-card__visual { height: 250px; min-height: 250px; padding: 44px 10px 8px; }
+  .vehicle-card--catalog .vehicle-card__visual { height: 250px; min-height: 250px; }
+  .vehicle-card--catalog .vehicle-card__visual > a { padding: 44px 10px 10px !important; }
 }
 @media (max-width: 760px) {
-  .vehicle-card--catalog .vehicle-card__visual { height: 235px; min-height: 235px; padding: 42px 8px 6px; }
+  .vehicle-card--catalog .vehicle-card__visual { height: 235px; min-height: 235px; }
+  .vehicle-card--catalog .vehicle-card__visual > a { padding: 42px 10px 10px !important; }
   .vehicle-card--catalog .vehicle-card__body { padding: 18px 16px 20px; }
   .vehicle-card--catalog h3 { font-size: 1.28rem; }
   .vehicle-card--catalog .vehicle-card__actions { grid-template-columns: 1fr; }
   .vehicle-card--catalog .vehicle-card__actions .button { min-height: 48px; }
 }
 @media (max-width: 420px) {
-  .vehicle-card--catalog .vehicle-card__visual { height: 220px; min-height: 220px; padding: 40px 6px 5px; }
+  .vehicle-card--catalog .vehicle-card__visual { height: 220px; min-height: 220px; }
+  .vehicle-card--catalog .vehicle-card__visual > a { padding: 40px 8px 9px !important; }
   .vehicle-card--catalog .vehicle-card__body { padding: 16px 14px 18px; }
 }
-/* ===== PRODUCT CARDS FINAL RESPONSIVE v34 END ===== */
+/* ===== PRODUCT CARDS FINAL RESPONSIVE v36 END ===== */

@@ -209,11 +209,12 @@
   }
 
   function renderLightbox(vehicle) {
+    const initialMedia = vehicle.media?.[0]?.src || vehicle.heroImage || vehicle.image || 'assets/images/hero-vehicle.webp';
     return `<div class="media-lightbox" data-media-lightbox aria-hidden="true" role="dialog" aria-modal="true" aria-label="Thư viện ảnh ${escapeHtml(vehicle.name)}">
       <button class="media-lightbox__backdrop" type="button" data-close-lightbox aria-label="Đóng"></button>
       <div class="media-lightbox__dialog">
         <div class="media-lightbox__top"><strong data-lightbox-title>${escapeHtml(vehicle.name)}</strong><span data-lightbox-counter></span><button type="button" data-close-lightbox aria-label="Đóng">${COMPONENTS.icon('close')}</button></div>
-        <div class="media-lightbox__stage"><button type="button" class="media-lightbox__nav media-lightbox__nav--prev" data-lightbox-prev aria-label="Ảnh trước">‹</button><img data-lightbox-image alt="${escapeHtml(vehicle.name)}"><button type="button" class="media-lightbox__nav media-lightbox__nav--next" data-lightbox-next aria-label="Ảnh sau">›</button></div>
+        <div class="media-lightbox__stage"><button type="button" class="media-lightbox__nav media-lightbox__nav--prev" data-lightbox-prev aria-label="Ảnh trước">‹</button><img data-lightbox-image src="${escapeHtml(initialMedia)}" data-fallback="assets/images/hero-vehicle.webp" alt="${escapeHtml(vehicle.name)} - hình 1" width="1600" height="900" loading="lazy" decoding="async"><button type="button" class="media-lightbox__nav media-lightbox__nav--next" data-lightbox-next aria-label="Ảnh sau">›</button></div>
       </div>
     </div>`;
   }

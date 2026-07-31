@@ -29,7 +29,8 @@
     calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>',
     document: '<path d="M6 2h8l4 4v16H6z"/><path d="M14 2v5h5M9 12h6M9 16h6"/>',
     check: '<path d="m5 12 4 4L19 6"/>',
-    external: '<path d="M15 3h6v6M10 14 21 3M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/>'
+    external: '<path d="M15 3h6v6M10 14 21 3M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"/>',
+    search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.7-3.7"/>'
   };
 
   function icon(name, className = '') {
@@ -43,7 +44,10 @@
   }
 
   function vehicleImage(vehicle, className = '') {
-    return `<img class="${className}" src="${vehicle.cardRemote || vehicle.image}" data-fallback="${vehicle.image}" alt="${vehicle.name} tại BYD Thành Công Cà Mau" width="640" height="360" loading="lazy" decoding="async">`;
+    const isCatalogCard = String(className).split(/\s+/).includes('vehicle-card__image');
+    const loading = isCatalogCard ? 'eager' : 'lazy';
+    const priority = isCatalogCard ? ' fetchpriority="low"' : '';
+    return `<img class="${className}" src="${vehicle.cardRemote || vehicle.image}" data-fallback="${vehicle.image}" alt="${vehicle.name} tại BYD Thành Công Cà Mau" width="640" height="360" loading="${loading}" decoding="async"${priority}>`;
   }
 
   function renderTopbar() {
@@ -142,7 +146,7 @@
     return `
       <article class="vehicle-card vehicle-card--catalog" data-vehicle-slug="${vehicle.slug}" data-segment="${vehicle.segment.toLowerCase()}" data-powertrain="${vehicle.powertrain.toLowerCase()}" data-vehicle-search="${searchText}">
         <div class="vehicle-card__visual">
-          <div class="vehicle-card__badges">${vehicle.badges.map(b => `<span>${b}</span>`).join('')}</div>
+          <div class="vehicle-card__badges">${(vehicle.badges || []).map(b => `<span>${COMPONENTS_SAFE_TEXT(b)}</span>`).join('')}</div>
           <span class="vehicle-card__availability"><i></i>${vehicle.availability || 'Đang nhận tư vấn'}</span>
           <a href="/san-pham/?slug=${vehicle.slug}" aria-label="Xem chi tiết ${vehicle.name}">${vehicleImage(vehicle, 'vehicle-card__image')}</a>
         </div>

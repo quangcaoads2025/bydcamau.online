@@ -21,10 +21,18 @@
 
   function setImageFallbacks() {
     qsa('img[data-fallback]').forEach(img => {
-      img.addEventListener('error', () => {
-        const fallback = img.dataset.fallback;
-        if (fallback && img.src.indexOf(fallback) === -1) img.src = fallback;
-      }, { once: true });
+      if (img.dataset.fallbackReady === 'true') return;
+      img.dataset.fallbackReady = 'true';
+
+      const applyFallback = () => {
+        const fallback = String(img.dataset.fallback || '').trim();
+        if (!fallback) return;
+        const fallbackUrl = new URL(fallback, document.baseURI).href;
+        if (img.src !== fallbackUrl) img.src = fallbackUrl;
+      };
+
+      img.addEventListener('error', applyFallback, { once: true });
+      if (img.complete && img.naturalWidth === 0) applyFallback();
     });
   }
 
