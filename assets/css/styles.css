@@ -3720,3 +3720,252 @@ body.lightbox-open { overflow: hidden; }
     font-size: .66rem;
   }
 }
+
+
+@media (max-width: 768px) {
+  :where(
+    #vehicles .section-heading h2,
+    #news .section-heading h2,
+    #faq .section-heading h2,
+    #technology .section-heading h2,
+    #services .section-heading h2,
+    #showroom .showroom-content h2,
+    #khuyen-mai .offer-visual__content h2,
+    .about-page-main .about-content h2,
+    .charging-page-hero h1,
+    .charging-map-layout .section-heading h2,
+    .charging-support-card h2
+  ) {
+    max-width: 100%;
+    text-wrap: balance;
+    overflow-wrap: normal;
+    word-break: normal;
+    -webkit-hyphens: none;
+    hyphens: none;
+    letter-spacing: -.03em;
+  }
+
+  #vehicles .section-heading h2 {
+    max-width: 20ch;
+    margin: 8px 0 12px;
+    font-size: clamp(1.58rem, 6.6vw, 1.84rem);
+    line-height: 1.16;
+  }
+
+  #news .section-heading h2,
+  #faq .section-heading h2 {
+    max-width: 20ch;
+    margin: 8px 0 13px;
+    font-size: clamp(1.62rem, 6.8vw, 1.9rem);
+    line-height: 1.15;
+  }
+
+  #technology .section-heading h2,
+  #services .section-heading h2 {
+    max-width: 20ch;
+    font-size: clamp(1.58rem, 6.5vw, 1.84rem);
+    line-height: 1.15;
+  }
+
+  #showroom .showroom-content h2 {
+    max-width: 20ch;
+    margin: 10px 0 14px;
+    font-size: clamp(1.62rem, 6.8vw, 1.9rem);
+    line-height: 1.13;
+  }
+
+  #khuyen-mai .offer-visual__content {
+    right: 24px;
+    left: 24px;
+  }
+
+  #khuyen-mai .offer-visual__content h2 {
+    max-width: 20ch;
+    margin: 9px 0 12px;
+    font-size: clamp(1.62rem, 6.8vw, 1.9rem);
+    line-height: 1.12;
+  }
+
+  .about-page-main .about-content h2 {
+    max-width: 21ch;
+    margin: 8px 0 13px;
+    font-size: clamp(1.62rem, 6.8vw, 1.9rem);
+    line-height: 1.13;
+  }
+
+  .charging-page-hero h1 {
+    max-width: 17ch;
+    margin: 11px 0 16px;
+    font-size: clamp(2rem, 8.6vw, 2.38rem);
+    line-height: 1.06;
+    letter-spacing: -.04em;
+  }
+
+  .charging-map-layout .section-heading h2 {
+    max-width: 20ch;
+    margin: 8px 0 13px;
+    font-size: clamp(1.66rem, 7vw, 1.96rem);
+    line-height: 1.13;
+  }
+
+  .charging-support-card h2 {
+    max-width: 21ch;
+    margin: 9px 0 13px;
+    font-size: clamp(1.5rem, 6.4vw, 1.78rem);
+    line-height: 1.16;
+  }
+
+  #vehicles .section-heading p,
+  #news .section-heading p,
+  #faq .section-heading p,
+  .about-page-main .about-content > p,
+  .charging-map-layout .section-heading > p {
+    font-size: .9rem;
+    line-height: 1.62;
+  }
+}
+
+@media (max-width: 390px) {
+  #vehicles .section-heading h2,
+  #news .section-heading h2,
+  #faq .section-heading h2,
+  #showroom .showroom-content h2,
+  #khuyen-mai .offer-visual__content h2,
+  .about-page-main .about-content h2,
+  .charging-map-layout .section-heading h2 {
+    font-size: 1.65rem;
+  }
+
+  .charging-page-hero h1 {
+    font-size: 2rem;
+  }
+
+  .charging-support-card h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ===== MOBILE HEADING SYSTEM V27 START ===== */
+@media (max-width: 768px) {
+  :where(
+    #vehicles .section-heading h2,
+    #news .section-heading h2,
+    #faq .section-heading h2,
+    #technology .section-heading h2,
+    #services .section-heading h2,
+    #showroom .showroom-content h2,
+    #khuyen-mai .offer-visual__content h2,
+    .about-page-main .about-content h2,
+    .charging-page-hero h1,
+    .charging-map-layout .section-heading h2,
+    .charging-support-card h2
+  ) {
+    max-width: 100%;
+    text-wrap: balance;
+    overflow-wrap: normal;
+    word-break: normal;
+    -webkit-hyphens: none;
+    hyphens: none;
+    letter-spacing: -.03em;
+  }
+
+  #vehicles .section-heading h2 {
+    max-width: 20ch;
+    margin: 8px 0 12px;
+    font-size: clamp(1.58rem, 6.6vw, 1.84rem);
+    line-height: 1.16;
+  }
+
+  #news .section-heading h2,
+  #faq .section-heading h2 {
+    max-width: 20ch;
+    margin: 8px 0 13px;
+    font-size: clamp(1.62rem, 6.8vw, 1.9rem);
+    line-height: 1.15;
+  }
+
+  #technology .section-heading h2,
+  #services .section-heading h2 {
+    max-width: 20ch;
+    font-size: clamp(1.58rem, 6.5vw, 1.84rem);
+    line-height: 1.15;
+  }
+
+  #showroom .showroom-content h2 {
+    max-width: 20ch;
+    margin: 10px 0 14px;
+    font-size: clamp(1.62rem, 6.8vw, 1.9rem);
+    line-height: 1.13;
+  }
+
+  #khuyen-mai .offer-visual__content {
+    right: 24px;
+    left: 24px;
+  }
+
+  #khuyen-mai .offer-visual__content h2 {
+    max-width: 20ch;
+    margin: 9px 0 12px;
+    font-size: clamp(1.62rem, 6.8vw, 1.9rem);
+    line-height: 1.12;
+  }
+
+  .about-page-main .about-content h2 {
+    max-width: 21ch;
+    margin: 8px 0 13px;
+    font-size: clamp(1.62rem, 6.8vw, 1.9rem);
+    line-height: 1.13;
+  }
+
+  .charging-page-hero h1 {
+    max-width: 17ch;
+    margin: 11px 0 16px;
+    font-size: clamp(2rem, 8.6vw, 2.38rem);
+    line-height: 1.06;
+    letter-spacing: -.04em;
+  }
+
+  .charging-map-layout .section-heading h2 {
+    max-width: 20ch;
+    margin: 8px 0 13px;
+    font-size: clamp(1.66rem, 7vw, 1.96rem);
+    line-height: 1.13;
+  }
+
+  .charging-support-card h2 {
+    max-width: 21ch;
+    margin: 9px 0 13px;
+    font-size: clamp(1.5rem, 6.4vw, 1.78rem);
+    line-height: 1.16;
+  }
+
+  #vehicles .section-heading p,
+  #news .section-heading p,
+  #faq .section-heading p,
+  .about-page-main .about-content > p,
+  .charging-map-layout .section-heading > p {
+    font-size: .9rem;
+    line-height: 1.62;
+  }
+}
+
+@media (max-width: 390px) {
+  #vehicles .section-heading h2,
+  #news .section-heading h2,
+  #faq .section-heading h2,
+  #showroom .showroom-content h2,
+  #khuyen-mai .offer-visual__content h2,
+  .about-page-main .about-content h2,
+  .charging-map-layout .section-heading h2 {
+    font-size: 1.65rem;
+  }
+
+  .charging-page-hero h1 {
+    font-size: 2rem;
+  }
+
+  .charging-support-card h2 {
+    font-size: 1.5rem;
+  }
+}
+/* ===== MOBILE HEADING SYSTEM V27 END ===== */
