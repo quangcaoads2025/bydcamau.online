@@ -3547,8 +3547,8 @@ window.BYD_DATA = Object.freeze({
         "MPV",
         "Thuần điện"
       ],
-      "price": 726000000,
-      "priceLabel": "726.000.000đ",
+      "price": 756000000,
+      "priceLabel": "756.000.000đ",
       "image": "assets/images/vehicles/byd-m6/card.webp",
       "heroImage": "assets/images/vehicles/byd-m6/source/01-byd-m6-1-scaled.webp",
       "gallery": [
@@ -3623,8 +3623,8 @@ window.BYD_DATA = Object.freeze({
       "variants": [
         {
           "name": "M6",
-          "price": 726000000,
-          "priceLabel": "726.000.000đ",
+          "price": 756000000,
+          "priceLabel": "756.000.000đ",
           "note": "Giá tham khảo theo dữ liệu nguồn",
           "highlights": []
         }
