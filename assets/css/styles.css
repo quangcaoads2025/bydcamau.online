@@ -3690,3 +3690,33 @@ body.lightbox-open { overflow: hidden; }
 }
 
 .content-empty-state{padding:24px;border:1px solid #e5e7eb;border-radius:16px;background:#fff;color:#5f6368;text-align:center}
+
+/* ===== Vehicle detail mobile tabs hotfix v24 ===== */
+@media (max-width: 640px) {
+  .vehicle-tabs__inner {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: min(calc(100% - 20px), var(--container));
+    overflow: visible;
+  }
+  .vehicle-tab {
+    min-width: 0;
+    min-height: 50px;
+    padding: 0 2px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: clip;
+    font-size: .72rem;
+    font-weight: 760;
+    letter-spacing: -.02em;
+  }
+  .vehicle-tab::after {
+    right: 6px;
+    left: 6px;
+  }
+}
+@media (max-width: 370px) {
+  .vehicle-tab {
+    font-size: .66rem;
+  }
+}
