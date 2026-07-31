@@ -4226,3 +4226,102 @@ body.lightbox-open { overflow: hidden; }
   }
 }
 /* ===== CORRECTIVE PRODUCT LAYOUT v29 END ===== */
+
+/* ===== VEHICLE CARD SIZE NORMALIZATION v30 START ===== */
+
+/* Mục tiêu:
+   - xe hiển thị to hơn
+   - xe có chiều cao hiển thị gần bằng nhau
+   - không bị cắt đầu/đuôi xe
+   - không dùng absolute để tránh lỗi tụt ảnh
+*/
+
+.vehicle-card--catalog .vehicle-card__visual,
+.vehicle-card .vehicle-card__visual {
+  min-height: 215px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px 18px 12px !important;
+  overflow: hidden !important;
+}
+
+.vehicle-card--catalog .vehicle-card__visual > a,
+.vehicle-card .vehicle-card__visual > a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  position: static !important;
+  inset: auto !important;
+}
+
+.vehicle-card--catalog .vehicle-card__image,
+.vehicle-card .vehicle-card__image,
+.vehicle-card--catalog img.vehicle-card__image,
+.vehicle-card img.vehicle-card__image {
+  display: block !important;
+  width: auto !important;
+  height: 146px !important;   /* chuẩn chiều cao để nhìn đồng đều */
+  max-width: 88% !important;
+  max-height: 146px !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+  margin: 0 auto !important;
+}
+
+/* giảm khoảng trắng giữa khung ảnh và phần nội dung */
+.vehicle-card--catalog .vehicle-card__body,
+.vehicle-card .vehicle-card__body {
+  padding-top: 18px !important;
+}
+
+/* các nhãn phía trên bớt chiếm chiều cao */
+.vehicle-card--catalog .vehicle-card__chips,
+.vehicle-card .vehicle-card__chips {
+  margin-bottom: 8px !important;
+}
+
+/* Mobile */
+@media (max-width: 991px) {
+  .vehicle-card--catalog .vehicle-card__visual,
+  .vehicle-card .vehicle-card__visual {
+    min-height: 185px !important;
+    padding: 16px 12px 8px !important;
+  }
+
+  .vehicle-card--catalog .vehicle-card__image,
+  .vehicle-card .vehicle-card__image,
+  .vehicle-card--catalog img.vehicle-card__image,
+  .vehicle-card img.vehicle-card__image {
+    height: 118px !important;
+    max-height: 118px !important;
+    max-width: 90% !important;
+  }
+
+  .vehicle-card--catalog .vehicle-card__body,
+  .vehicle-card .vehicle-card__body {
+    padding-top: 14px !important;
+  }
+}
+
+/* Màn hình lớn hơn 1440px thì tăng nhẹ cho cân layout */
+@media (min-width: 1440px) {
+  .vehicle-card--catalog .vehicle-card__visual,
+  .vehicle-card .vehicle-card__visual {
+    min-height: 235px !important;
+  }
+
+  .vehicle-card--catalog .vehicle-card__image,
+  .vehicle-card .vehicle-card__image,
+  .vehicle-card--catalog img.vehicle-card__image,
+  .vehicle-card img.vehicle-card__image {
+    height: 156px !important;
+    max-height: 156px !important;
+    max-width: 90% !important;
+  }
+}
+
+/* ===== VEHICLE CARD SIZE NORMALIZATION v30 END ===== */
