@@ -35,7 +35,7 @@ window.BYD_DATA = Object.freeze({
       ],
       "price": null,
       "priceLabel": "Liên hệ",
-      "image": "assets/images/hero-vehicle.webp",
+      "image": "assets/images/vehicles/byd-sealion-5/card.webp",
       "shortDescription": "BYD SEALION 5 DM-i là sự kết hợp hoàn hảo giữa phong cách và sức mạnh. Ngoại hình rộng rãi, vững chãi, lấy cảm hứng từ ngôn ngữ thiết kế đặc trưng “Dragon Face” của BYD, mang đến cảm giác an toàn, hiện đại và luôn sẵn sàng đồng hành cùng mọi kế hoạch của gia đ",
       "tagline": "Thiết kế phù hợp với phong cách sống của gia đình bạn",
       "availability": "Đang nhận thông tin sản phẩm",
@@ -3547,8 +3547,8 @@ window.BYD_DATA = Object.freeze({
         "MPV",
         "Thuần điện"
       ],
-      "price": 756000000,
-      "priceLabel": "756.000.000đ",
+      "price": 726000000,
+      "priceLabel": "726.000.000đ",
       "image": "assets/images/vehicles/byd-m6/card.webp",
       "heroImage": "assets/images/vehicles/byd-m6/source/01-byd-m6-1-scaled.webp",
       "gallery": [
@@ -3623,8 +3623,8 @@ window.BYD_DATA = Object.freeze({
       "variants": [
         {
           "name": "M6",
-          "price": 756000000,
-          "priceLabel": "756.000.000đ",
+          "price": 726000000,
+          "priceLabel": "726.000.000đ",
           "note": "Giá tham khảo theo dữ liệu nguồn",
           "highlights": []
         }

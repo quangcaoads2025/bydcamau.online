@@ -3970,376 +3970,53 @@ body.lightbox-open { overflow: hidden; }
 }
 /* ===== MOBILE HEADING SYSTEM V27 END ===== */
 
-/* ===== CORRECTIVE PRODUCT LAYOUT v29 START ===== */
-/* =========================================================
-   BYD CÀ MAU — CORRECTIVE PRODUCT LAYOUT v29
-   Sửa lỗi v28: ảnh xe bị tụt/cắt, khoảng cách lớn, tiêu đề wrap xấu
-   ========================================================= */
-
-/* 1) Khôi phục ảnh xe về luồng bố cục bình thường, không absolute. */
+/* ===== PRODUCT CARDS FINAL RESPONSIVE v34 START ===== */
 .vehicle-card--catalog .vehicle-card__visual {
   position: relative;
-  display: block;
-  height: 216px;
-  min-height: 216px;
-  padding: 0;
+  display: grid;
+  place-items: center;
+  height: 290px;
+  min-height: 290px;
+  padding: 48px 12px 10px;
   overflow: hidden;
+  background: linear-gradient(145deg,#f7f8f9,#fff);
 }
-
 .vehicle-card--catalog .vehicle-card__visual > a {
-  position: relative !important;
-  inset: auto !important;
-  display: flex !important;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 46px 14px 8px;
-  overflow: hidden;
+  position: static !important;
+  display: grid !important;
+  place-items: end center !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  overflow: visible !important;
 }
-
-.vehicle-card--catalog .vehicle-card__image {
-  display: block;
-  width: min(94%, 390px) !important;
+.vehicle-card--catalog .vehicle-card__image,
+.vehicle-card--catalog img.vehicle-card__image {
+  display: block !important;
+  width: 100% !important;
   height: 100% !important;
   max-width: 100% !important;
   max-height: 100% !important;
   object-fit: contain !important;
-  object-position: center !important;
-  transform: none !important;
-  transform-origin: center !important;
-}
-
-/* 2) Thu gọn khoảng cách giữa các section lớn trên trang chủ. */
-#services.section {
-  padding-bottom: 38px;
-}
-
-#showroom.section {
-  padding-top: 38px;
-  padding-bottom: 38px;
-}
-
-#news.section {
-  padding-top: 38px;
-}
-
-/* 3) Tiêu đề phải hiện đủ chữ rồi mới xuống dòng tự nhiên. */
-.source-story__content h3,
-.source-story-section .section-heading h2,
-.source-details-section .section-heading h2,
-.vehicle-story__content h2,
-.vehicle-summary h1,
-.vehicle-card--catalog h3,
-.vehicle-card--catalog .vehicle-card__title {
-  display: block !important;
-  width: auto !important;
-  max-width: none !important;
-  max-height: none !important;
-  overflow: visible !important;
-  white-space: normal !important;
-  text-overflow: clip !important;
-  text-wrap: wrap !important;
-  overflow-wrap: break-word !important;
-  word-break: normal !important;
-  -webkit-line-clamp: unset !important;
-  -webkit-box-orient: initial !important;
-  hyphens: none !important;
-}
-
-/* 4) Thu gọn bố cục chi tiết xe trên tablet/mobile. */
-@media (max-width: 720px) {
-  .vehicle-card--catalog .vehicle-card__visual {
-    height: 188px;
-    min-height: 188px;
-  }
-
-  .vehicle-card--catalog .vehicle-card__visual > a {
-    padding: 42px 8px 5px;
-  }
-
-  .vehicle-card--catalog .vehicle-card__image {
-    width: 96% !important;
-    height: 100% !important;
-  }
-
-  .vehicle-card--catalog .vehicle-card__body {
-    padding: 16px 15px 18px;
-  }
-
-  .vehicle-card--catalog h3,
-  .vehicle-card--catalog .vehicle-card__title {
-    font-size: 1.16rem !important;
-    line-height: 1.16 !important;
-    letter-spacing: -.022em !important;
-  }
-
-  .vehicle-card--catalog .vehicle-card__description {
-    margin-top: 7px;
-    font-size: .82rem;
-    line-height: 1.48;
-  }
-
-  /* Giảm tổng khoảng trống giữa các phần trên mobile. */
-  #services.section {
-    padding-bottom: 25px;
-  }
-
-  #showroom.section {
-    padding-top: 25px;
-    padding-bottom: 25px;
-  }
-
-  #news.section {
-    padding-top: 25px;
-  }
-
-  .source-story-section,
-  .source-gallery-section,
-  .source-details-section {
-    padding-top: 42px !important;
-    padding-bottom: 42px !important;
-  }
-
-  .source-story-list {
-    gap: 13px !important;
-    margin-top: 22px !important;
-  }
-
-  .source-story {
-    min-height: 0 !important;
-  }
-
-  .source-story__media {
-    min-height: 0 !important;
-  }
-
-  .source-story__media img {
-    width: 100% !important;
-    height: clamp(205px, 58vw, 248px) !important;
-    min-height: 0 !important;
-    object-fit: cover !important;
-    object-position: center !important;
-  }
-
-  .source-story__content {
-    min-height: 0 !important;
-    padding: 20px 18px 22px !important;
-  }
-
-  .source-story__content .eyebrow {
-    margin-bottom: 0;
-    font-size: .65rem !important;
-    line-height: 1.35;
-    letter-spacing: .12em;
-  }
-
-  /* Nhỏ hơn bản v28 khoảng 2 px. */
-  .source-story__content h3 {
-    margin: 8px 0 12px !important;
-    font-size: clamp(1.34rem, 5.8vw, 1.62rem) !important;
-    line-height: 1.14 !important;
-    letter-spacing: -.03em !important;
-  }
-
-  .source-story__content p {
-    margin: 0 0 15px !important;
-    font-size: .88rem !important;
-    line-height: 1.58 !important;
-  }
-
-  .source-story__content .text-link,
-  .source-story__content a {
-    font-size: .9rem !important;
-  }
-
-  .source-story-section .section-heading,
-  .source-details-section .section-heading {
-    width: calc(100% - 30px) !important;
-  }
-
-  .source-story-section .section-heading h2,
-  .source-details-section .section-heading h2 {
-    margin: 8px 0 11px !important;
-    font-size: clamp(1.58rem, 6.7vw, 1.9rem) !important;
-    line-height: 1.13 !important;
-    letter-spacing: -.03em !important;
-  }
-
-  .source-story-section .section-heading p,
-  .source-details-section .section-heading p {
-    font-size: .87rem !important;
-    line-height: 1.55 !important;
-  }
-
-  .source-details-grid {
-    gap: 7px !important;
-    margin-top: 21px !important;
-  }
-
-  .source-detail-item summary {
-    min-height: 54px !important;
-    padding: 12px 15px !important;
-    font-size: .91rem !important;
-  }
-
-  .source-detail-item p {
-    padding: 0 15px 15px !important;
-    font-size: .84rem !important;
-    line-height: 1.55 !important;
-  }
-
-  .source-gallery-group {
-    margin-top: 25px !important;
-  }
-
-  .vehicle-metric-strip > div {
-    min-height: 100px !important;
-    padding: 14px !important;
-  }
-
-  .vehicle-metric-strip strong {
-    margin: 14px 0 5px !important;
-    font-size: 1.16rem !important;
-  }
-
-  .vehicle-metric-strip small {
-    font-size: .74rem !important;
-    line-height: 1.38 !important;
-  }
-}
-
-@media (max-width: 390px) {
-  .vehicle-card--catalog .vehicle-card__visual {
-    height: 176px;
-    min-height: 176px;
-  }
-
-  .source-story__content h3 {
-    font-size: 1.29rem !important;
-  }
-
-  .source-story-section .section-heading h2,
-  .source-details-section .section-heading h2 {
-    font-size: 1.52rem !important;
-  }
-}
-/* ===== CORRECTIVE PRODUCT LAYOUT v29 END ===== */
-
-/* ===== VEHICLE CARD SIZE BOOST v31 START ===== */
-
-/* Gỡ triết lý hiển thị nhỏ trước đây, ưu tiên xe to - đều - đẹp */
-.vehicle-card--catalog .vehicle-card__visual,
-.vehicle-card .vehicle-card__visual {
-  min-height: 255px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 14px 14px 8px !important;
-  overflow: hidden !important;
-}
-
-.vehicle-card--catalog .vehicle-card__visual > a,
-.vehicle-card .vehicle-card__visual > a {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: 100% !important;
-  height: 100% !important;
-  position: static !important;
-}
-
-.vehicle-card--catalog .vehicle-card__image,
-.vehicle-card .vehicle-card__image,
-.vehicle-card--catalog img.vehicle-card__image,
-.vehicle-card img.vehicle-card__image {
-  display: block !important;
-  width: auto !important;
-  height: 178px !important;
-  max-height: 178px !important;
-  max-width: 94% !important;
-  object-fit: contain !important;
-  object-position: center center !important;
+  object-position: center bottom !important;
   margin: 0 auto !important;
-  transform: scale(1.18) !important;
-  transform-origin: center center !important;
+  transform: none !important;
 }
+.vehicle-card--catalog .vehicle-card__body { padding: 22px 22px 24px; }
+.vehicle-card--catalog h3 { font-size: 1.45rem; line-height: 1.15; }
 
-/* Với các ảnh có nhiều khoảng trắng, phóng thêm một chút nhưng không làm vỡ layout */
-.vehicle-card--catalog .vehicle-card__media,
-.vehicle-card .vehicle-card__media {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+@media (max-width: 1100px) {
+  .vehicle-card--catalog .vehicle-card__visual { height: 250px; min-height: 250px; padding: 44px 10px 8px; }
 }
-
-.vehicle-card--catalog .vehicle-card__body,
-.vehicle-card .vehicle-card__body {
-  padding-top: 14px !important;
+@media (max-width: 760px) {
+  .vehicle-card--catalog .vehicle-card__visual { height: 235px; min-height: 235px; padding: 42px 8px 6px; }
+  .vehicle-card--catalog .vehicle-card__body { padding: 18px 16px 20px; }
+  .vehicle-card--catalog h3 { font-size: 1.28rem; }
+  .vehicle-card--catalog .vehicle-card__actions { grid-template-columns: 1fr; }
+  .vehicle-card--catalog .vehicle-card__actions .button { min-height: 48px; }
 }
-
-.vehicle-card--catalog .vehicle-card__chips,
-.vehicle-card .vehicle-card__chips {
-  margin-bottom: 6px !important;
+@media (max-width: 420px) {
+  .vehicle-card--catalog .vehicle-card__visual { height: 220px; min-height: 220px; padding: 40px 6px 5px; }
+  .vehicle-card--catalog .vehicle-card__body { padding: 16px 14px 18px; }
 }
-
-/* Màn hình lớn */
-@media (min-width: 1500px) {
-  .vehicle-card--catalog .vehicle-card__visual,
-  .vehicle-card .vehicle-card__visual {
-    min-height: 270px !important;
-  }
-
-  .vehicle-card--catalog .vehicle-card__image,
-  .vehicle-card .vehicle-card__image,
-  .vehicle-card--catalog img.vehicle-card__image,
-  .vehicle-card img.vehicle-card__image {
-    height: 188px !important;
-    max-height: 188px !important;
-    transform: scale(1.2) !important;
-  }
-}
-
-/* Tablet/mobile */
-@media (max-width: 991px) {
-  .vehicle-card--catalog .vehicle-card__visual,
-  .vehicle-card .vehicle-card__visual {
-    min-height: 205px !important;
-    padding: 12px 10px 6px !important;
-  }
-
-  .vehicle-card--catalog .vehicle-card__image,
-  .vehicle-card .vehicle-card__image,
-  .vehicle-card--catalog img.vehicle-card__image,
-  .vehicle-card img.vehicle-card__image {
-    height: 138px !important;
-    max-height: 138px !important;
-    max-width: 95% !important;
-    transform: scale(1.16) !important;
-  }
-
-  .vehicle-card--catalog .vehicle-card__body,
-  .vehicle-card .vehicle-card__body {
-    padding-top: 12px !important;
-  }
-}
-
-/* Máy rất nhỏ */
-@media (max-width: 575px) {
-  .vehicle-card--catalog .vehicle-card__visual,
-  .vehicle-card .vehicle-card__visual {
-    min-height: 188px !important;
-  }
-
-  .vehicle-card--catalog .vehicle-card__image,
-  .vehicle-card .vehicle-card__image,
-  .vehicle-card--catalog img.vehicle-card__image,
-  .vehicle-card img.vehicle-card__image {
-    height: 126px !important;
-    max-height: 126px !important;
-    transform: scale(1.12) !important;
-  }
-}
-
-/* ===== VEHICLE CARD SIZE BOOST v31 END ===== */
+/* ===== PRODUCT CARDS FINAL RESPONSIVE v34 END ===== */

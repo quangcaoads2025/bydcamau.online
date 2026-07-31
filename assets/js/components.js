@@ -140,7 +140,7 @@
     const variantText = vehicle.variants?.length > 1 ? `${vehicle.variants.length} phiên bản` : (vehicle.variants?.[0]?.name || 'Nhận tư vấn');
     const searchText = [vehicle.name, vehicle.segment, vehicle.powertrain, vehicle.tagline, ...(vehicle.badges || [])].join(' ').toLowerCase();
     return `
-      <article class="vehicle-card vehicle-card--catalog" data-segment="${vehicle.segment.toLowerCase()}" data-powertrain="${vehicle.powertrain.toLowerCase()}" data-vehicle-search="${searchText}">
+      <article class="vehicle-card vehicle-card--catalog" data-vehicle-slug="${vehicle.slug}" data-segment="${vehicle.segment.toLowerCase()}" data-powertrain="${vehicle.powertrain.toLowerCase()}" data-vehicle-search="${searchText}">
         <div class="vehicle-card__visual">
           <div class="vehicle-card__badges">${vehicle.badges.map(b => `<span>${b}</span>`).join('')}</div>
           <span class="vehicle-card__availability"><i></i>${vehicle.availability || 'Đang nhận tư vấn'}</span>
