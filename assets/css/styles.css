@@ -3969,3 +3969,290 @@ body.lightbox-open { overflow: hidden; }
   }
 }
 /* ===== MOBILE HEADING SYSTEM V27 END ===== */
+
+/* ===== PRODUCT MOBILE AUDIT v28 START ===== */
+/* =========================================================
+   BYD CÀ MAU — PRODUCT + VEHICLE DETAIL AUDIT v28
+   ========================================================= */
+
+/* ---------- Product cards: enlarge the vehicle and remove empty space ---------- */
+.vehicle-card--catalog .vehicle-card__visual {
+  position: relative;
+  min-height: 230px;
+  overflow: hidden;
+}
+
+.vehicle-card--catalog .vehicle-card__visual > a {
+  position: absolute;
+  inset: 54px 14px 10px;
+  display: grid;
+  place-items: center;
+}
+
+.vehicle-card--catalog .vehicle-card__image {
+  display: block;
+  width: 94%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+  transform: scale(1.12);
+  transform-origin: center;
+}
+
+.vehicle-card--catalog .vehicle-card__body {
+  padding-top: 22px;
+}
+
+.vehicle-card--catalog .vehicle-card__meta,
+.vehicle-card--catalog .vehicle-card__title,
+.vehicle-card--catalog .vehicle-card__description {
+  min-width: 0;
+}
+
+.vehicle-card--catalog .vehicle-card__title,
+.vehicle-card--catalog h3 {
+  text-wrap: balance;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* ---------- Vehicle detail: consistent title wrapping ---------- */
+.source-story__content h3,
+.source-story-section .section-heading h2,
+.source-details-section .section-heading h2,
+.vehicle-story__content h2,
+.vehicle-summary h1 {
+  text-wrap: balance;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* Prevent sticky tabs from covering anchored sections. */
+.source-story-section,
+.source-gallery-section,
+.source-details-section,
+.vehicle-story,
+.vehicle-specifications {
+  scroll-margin-top: 130px;
+}
+
+/* ---------- Mobile product detail audit ---------- */
+@media (max-width: 720px) {
+  /* Tabs remain compact and readable. */
+  .vehicle-tabs {
+    position: sticky;
+    top: var(--header-height, 72px);
+    z-index: 35;
+  }
+
+  .vehicle-tabs__inner {
+    width: 100%;
+    padding-inline: 10px;
+  }
+
+  .vehicle-tab {
+    min-height: 48px;
+    font-size: .70rem;
+    letter-spacing: -.015em;
+  }
+
+  /* Main product cards. */
+  .vehicle-card--catalog .vehicle-card__visual {
+    min-height: 205px;
+  }
+
+  .vehicle-card--catalog .vehicle-card__visual > a {
+    inset: 48px 8px 5px;
+  }
+
+  .vehicle-card--catalog .vehicle-card__image {
+    width: 98%;
+    transform: scale(1.16);
+  }
+
+  .vehicle-card--catalog .vehicle-card__body {
+    padding: 18px 16px;
+  }
+
+  .vehicle-card--catalog h3,
+  .vehicle-card--catalog .vehicle-card__title {
+    font-size: 1.28rem;
+    line-height: 1.14;
+  }
+
+  .vehicle-card--catalog .vehicle-card__description {
+    font-size: .85rem;
+    line-height: 1.5;
+  }
+
+  /* Story cards: compact image and copy, no desktop-sized white blocks. */
+  .source-story-section {
+    padding-block: 54px;
+  }
+
+  .source-story-section > .section-heading,
+  .source-details-section > .section-heading {
+    width: calc(100% - 32px);
+    margin-inline: auto;
+  }
+
+  .source-story-section .section-heading h2,
+  .source-details-section .section-heading h2 {
+    margin: 9px 0 12px;
+    font-size: clamp(1.72rem, 7.4vw, 2.05rem);
+    line-height: 1.12;
+    letter-spacing: -.035em;
+  }
+
+  .source-story-section .section-heading p,
+  .source-details-section .section-heading p {
+    font-size: .92rem;
+    line-height: 1.6;
+  }
+
+  .source-story-list {
+    gap: 18px;
+    margin-top: 28px;
+  }
+
+  .source-story {
+    min-height: 0;
+    border-radius: 20px;
+  }
+
+  .source-story__media {
+    min-height: 0;
+  }
+
+  .source-story__media img {
+    width: 100%;
+    height: clamp(220px, 62vw, 280px);
+    min-height: 0;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .source-story__content {
+    min-height: 0;
+    padding: 24px 20px 27px;
+  }
+
+  .source-story__content .eyebrow {
+    font-size: .68rem;
+    letter-spacing: .13em;
+  }
+
+  .source-story__content h3 {
+    margin: 10px 0 14px;
+    font-size: clamp(1.48rem, 6.6vw, 1.82rem);
+    line-height: 1.12;
+    letter-spacing: -.035em;
+  }
+
+  .source-story__content p {
+    margin: 0 0 18px;
+    font-size: .92rem;
+    line-height: 1.65;
+  }
+
+  .source-story__content .text-link,
+  .source-story__content a {
+    font-size: .94rem;
+  }
+
+  /* Specifications: avoid oversized title and overly tall rows. */
+  .source-details-section {
+    padding: 54px 0 76px;
+  }
+
+  .source-details-grid {
+    gap: 9px;
+    margin-top: 26px;
+  }
+
+  .source-detail-item {
+    border-radius: 14px;
+  }
+
+  .source-detail-item summary {
+    min-height: 58px;
+    padding: 14px 16px;
+    font-size: .96rem;
+  }
+
+  .source-detail-item p {
+    padding: 0 16px 17px;
+    font-size: .88rem;
+    line-height: 1.6;
+  }
+
+  /* Metric blocks. */
+  .vehicle-metric-strip {
+    margin-top: 14px;
+    border-radius: 16px;
+  }
+
+  .vehicle-metric-strip > div {
+    min-height: 108px;
+    padding: 16px;
+  }
+
+  .vehicle-metric-strip strong {
+    margin: 16px 0 6px;
+    font-size: 1.24rem;
+  }
+
+  .vehicle-metric-strip small {
+    font-size: .78rem;
+    line-height: 1.4;
+  }
+
+  /* Gallery and content cards must not create huge empty gaps. */
+  .source-gallery-section {
+    padding-block: 54px;
+  }
+
+  .source-gallery-group {
+    margin-top: 30px;
+  }
+
+  .vehicle-gallery__main--source img {
+    height: clamp(245px, 72vw, 310px) !important;
+    min-height: 0 !important;
+  }
+
+  /* Keep floating actions from occupying too much text width. */
+  .mobile-register-cta {
+    width: min(158px, calc(100vw - 76px));
+  }
+
+  .mobile-register-cta__copy strong {
+    font-size: .68rem;
+  }
+
+  .mobile-register-cta__copy small {
+    font-size: .53rem;
+  }
+}
+
+/* Extra narrow phones. */
+@media (max-width: 390px) {
+  .vehicle-tab {
+    font-size: .64rem;
+  }
+
+  .source-story__content h3 {
+    font-size: 1.42rem;
+  }
+
+  .source-story__content {
+    padding-inline: 18px;
+  }
+
+  .mobile-register-cta {
+    width: 146px;
+  }
+}
+/* ===== PRODUCT MOBILE AUDIT v28 END ===== */
