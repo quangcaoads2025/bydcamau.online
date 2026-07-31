@@ -1,10 +1,31 @@
 'use strict';
+/* ==================== CẤU HÌNH THỨ TỰ XE ====================
+   CHỈ CẦN ĐỔI CÁC CON SỐ 1–11 Ở KHỐI NÀY.
+   Số nhỏ hiển thị trước; số lớn hiển thị sau.
+   Không dùng trùng số để tránh thứ tự khó kiểm soát.
+================================================================ */
+const BYD_VEHICLE_ORDER = Object.freeze({
+  "byd-dolphin": 1, // BYD DOLPHIN
+  "byd-m6": 2, // BYD M6
+  "byd-atto-2": 3, // BYD ATTO 2
+  "byd-sealion-5": 4, // BYD SEALION 5
+  "byd-seal-5": 5, // BYD SEAL 5
+  "byd-sealion-6": 6, // BYD SEALION 6
+  "byd-m9": 7, // BYD M9
+  "byd-atto-3": 8, // BYD ATTO 3
+  "byd-seal": 9, // BYD SEAL
+  "byd-han": 10, // BYD HAN
+  "byd-sealion-8": 11, // BYD SEALION 8
+});
+/* ================= HẾT CẤU HÌNH THỨ TỰ XE ================= */
+
 
 window.BYD_DATA = Object.freeze({
   "vehicles": [
     {
       "slug": "byd-sealion-5",
       "name": "BYD SEALION 5",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-sealion-5"],
       "segment": "SUV",
       "powertrain": "DM-i",
       "menuFeatured": true,
@@ -477,6 +498,7 @@ window.BYD_DATA = Object.freeze({
     {
       "slug": "byd-seal-5",
       "name": "BYD SEAL 5",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-seal-5"],
       "segment": "Sedan",
       "powertrain": "DM-i",
       "menuFeatured": true,
@@ -891,6 +913,7 @@ window.BYD_DATA = Object.freeze({
     {
       "slug": "byd-m9",
       "name": "BYD M9",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-m9"],
       "segment": "MPV",
       "powertrain": "DM-i",
       "menuFeatured": true,
@@ -1416,6 +1439,7 @@ window.BYD_DATA = Object.freeze({
     {
       "slug": "byd-atto-2",
       "name": "BYD Atto 2",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-atto-2"],
       "segment": "SUV",
       "powertrain": "EV",
       "menuFeatured": true,
@@ -1954,6 +1978,7 @@ window.BYD_DATA = Object.freeze({
     {
       "slug": "byd-sealion-6",
       "name": "BYD SEALION 6",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-sealion-6"],
       "segment": "SUV",
       "powertrain": "DM-i",
       "menuFeatured": true,
@@ -2703,6 +2728,7 @@ window.BYD_DATA = Object.freeze({
     {
       "slug": "byd-han",
       "name": "BYD Han",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-han"],
       "segment": "Sedan",
       "powertrain": "EV",
       "menuFeatured": true,
@@ -3131,6 +3157,7 @@ window.BYD_DATA = Object.freeze({
     {
       "slug": "byd-sealion-8",
       "name": "BYD SEALION 8",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-sealion-8"],
       "segment": "SUV",
       "powertrain": "EV",
       "menuFeatured": false,
@@ -3512,6 +3539,7 @@ window.BYD_DATA = Object.freeze({
     {
       "slug": "byd-m6",
       "name": "BYD M6",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-m6"],
       "segment": "MPV",
       "powertrain": "EV",
       "menuFeatured": true,
@@ -3852,6 +3880,7 @@ window.BYD_DATA = Object.freeze({
     {
       "slug": "byd-dolphin",
       "name": "BYD Dolphin",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-dolphin"],
       "segment": "Hatchback",
       "powertrain": "EV",
       "menuFeatured": true,
@@ -4266,6 +4295,7 @@ window.BYD_DATA = Object.freeze({
     {
       "slug": "byd-atto-3",
       "name": "BYD ATTO 3",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-atto-3"],
       "segment": "SUV",
       "powertrain": "EV",
       "menuFeatured": false,
@@ -4759,6 +4789,7 @@ window.BYD_DATA = Object.freeze({
     {
       "slug": "byd-seal",
       "name": "BYD Seal",
+      "displayOrder": BYD_VEHICLE_ORDER["byd-seal"],
       "segment": "Sedan",
       "powertrain": "EV",
       "menuFeatured": true,
@@ -5245,7 +5276,11 @@ window.BYD_DATA = Object.freeze({
         }
       ]
     }
-  ],
+  ].sort((a, b) => {
+    const orderA = Number.isFinite(Number(a.displayOrder)) ? Number(a.displayOrder) : 999;
+    const orderB = Number.isFinite(Number(b.displayOrder)) ? Number(b.displayOrder) : 999;
+    return orderA - orderB || String(a.name || "").localeCompare(String(b.name || ""), "vi");
+  }),
   "technology": [
     {
       "title": "Blade Battery",
