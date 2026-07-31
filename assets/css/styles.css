@@ -4227,22 +4227,16 @@ body.lightbox-open { overflow: hidden; }
 }
 /* ===== CORRECTIVE PRODUCT LAYOUT v29 END ===== */
 
-/* ===== VEHICLE CARD SIZE NORMALIZATION v30 START ===== */
+/* ===== VEHICLE CARD SIZE BOOST v31 START ===== */
 
-/* Mục tiêu:
-   - xe hiển thị to hơn
-   - xe có chiều cao hiển thị gần bằng nhau
-   - không bị cắt đầu/đuôi xe
-   - không dùng absolute để tránh lỗi tụt ảnh
-*/
-
+/* Gỡ triết lý hiển thị nhỏ trước đây, ưu tiên xe to - đều - đẹp */
 .vehicle-card--catalog .vehicle-card__visual,
 .vehicle-card .vehicle-card__visual {
-  min-height: 215px !important;
+  min-height: 255px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  padding: 20px 18px 12px !important;
+  padding: 14px 14px 8px !important;
   overflow: hidden !important;
 }
 
@@ -4254,7 +4248,6 @@ body.lightbox-open { overflow: hidden; }
   width: 100% !important;
   height: 100% !important;
   position: static !important;
-  inset: auto !important;
 }
 
 .vehicle-card--catalog .vehicle-card__image,
@@ -4263,65 +4256,90 @@ body.lightbox-open { overflow: hidden; }
 .vehicle-card img.vehicle-card__image {
   display: block !important;
   width: auto !important;
-  height: 146px !important;   /* chuẩn chiều cao để nhìn đồng đều */
-  max-width: 88% !important;
-  max-height: 146px !important;
+  height: 178px !important;
+  max-height: 178px !important;
+  max-width: 94% !important;
   object-fit: contain !important;
   object-position: center center !important;
-  transform: none !important;
   margin: 0 auto !important;
+  transform: scale(1.18) !important;
+  transform-origin: center center !important;
 }
 
-/* giảm khoảng trắng giữa khung ảnh và phần nội dung */
+/* Với các ảnh có nhiều khoảng trắng, phóng thêm một chút nhưng không làm vỡ layout */
+.vehicle-card--catalog .vehicle-card__media,
+.vehicle-card .vehicle-card__media {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 .vehicle-card--catalog .vehicle-card__body,
 .vehicle-card .vehicle-card__body {
-  padding-top: 18px !important;
+  padding-top: 14px !important;
 }
 
-/* các nhãn phía trên bớt chiếm chiều cao */
 .vehicle-card--catalog .vehicle-card__chips,
 .vehicle-card .vehicle-card__chips {
-  margin-bottom: 8px !important;
+  margin-bottom: 6px !important;
 }
 
-/* Mobile */
-@media (max-width: 991px) {
+/* Màn hình lớn */
+@media (min-width: 1500px) {
   .vehicle-card--catalog .vehicle-card__visual,
   .vehicle-card .vehicle-card__visual {
-    min-height: 185px !important;
-    padding: 16px 12px 8px !important;
+    min-height: 270px !important;
   }
 
   .vehicle-card--catalog .vehicle-card__image,
   .vehicle-card .vehicle-card__image,
   .vehicle-card--catalog img.vehicle-card__image,
   .vehicle-card img.vehicle-card__image {
-    height: 118px !important;
-    max-height: 118px !important;
-    max-width: 90% !important;
+    height: 188px !important;
+    max-height: 188px !important;
+    transform: scale(1.2) !important;
+  }
+}
+
+/* Tablet/mobile */
+@media (max-width: 991px) {
+  .vehicle-card--catalog .vehicle-card__visual,
+  .vehicle-card .vehicle-card__visual {
+    min-height: 205px !important;
+    padding: 12px 10px 6px !important;
+  }
+
+  .vehicle-card--catalog .vehicle-card__image,
+  .vehicle-card .vehicle-card__image,
+  .vehicle-card--catalog img.vehicle-card__image,
+  .vehicle-card img.vehicle-card__image {
+    height: 138px !important;
+    max-height: 138px !important;
+    max-width: 95% !important;
+    transform: scale(1.16) !important;
   }
 
   .vehicle-card--catalog .vehicle-card__body,
   .vehicle-card .vehicle-card__body {
-    padding-top: 14px !important;
+    padding-top: 12px !important;
   }
 }
 
-/* Màn hình lớn hơn 1440px thì tăng nhẹ cho cân layout */
-@media (min-width: 1440px) {
+/* Máy rất nhỏ */
+@media (max-width: 575px) {
   .vehicle-card--catalog .vehicle-card__visual,
   .vehicle-card .vehicle-card__visual {
-    min-height: 235px !important;
+    min-height: 188px !important;
   }
 
   .vehicle-card--catalog .vehicle-card__image,
   .vehicle-card .vehicle-card__image,
   .vehicle-card--catalog img.vehicle-card__image,
   .vehicle-card img.vehicle-card__image {
-    height: 156px !important;
-    max-height: 156px !important;
-    max-width: 90% !important;
+    height: 126px !important;
+    max-height: 126px !important;
+    transform: scale(1.12) !important;
   }
 }
 
-/* ===== VEHICLE CARD SIZE NORMALIZATION v30 END ===== */
+/* ===== VEHICLE CARD SIZE BOOST v31 END ===== */
