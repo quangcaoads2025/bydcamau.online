@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Remove index.html from the public URL
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
+
+# Redirect legacy page names
+RewriteRule ^charging\.html$ /tram-sac/ [R=301,L]
+RewriteRule ^news\.html$ /tin-tuc/ [R=301,L]
+RewriteRule ^vehicle\.html$ /san-pham/ [R=301,L]
+RewriteRule ^privacy\.html$ /chinh-sach-bao-mat/ [R=301,L]
+RewriteRule ^terms\.html$ /dieu-khoan-su-dung/ [R=301,L]
+
+DirectoryIndex index.html
