@@ -2,7 +2,7 @@
 
 (function () {
   const CONFIG = window.BYD_CONFIG;
-  const DATA = window.BYD_DATA;
+  const DATA = window.BYD_DATA || {};
   const COMPONENTS = window.BYD_COMPONENTS;
 
   const qs = (selector, scope = document) => scope.querySelector(selector);
@@ -115,7 +115,7 @@
     const grid = qs('[data-vehicle-grid]');
     if (!grid) return;
 
-    const orderedVehicles = [...DATA.vehicles];
+    const orderedVehicles = [...(Array.isArray(DATA.vehicles) ? DATA.vehicles : [])];
     const pagination = qs('[data-vehicle-pagination]');
     const previousButton = qs('[data-vehicle-prev]');
     const nextButton = qs('[data-vehicle-next]');
@@ -226,7 +226,8 @@
     const target = qs('[data-technology-grid]');
     if (!target) return;
     const iconNames = ['battery', 'spark', 'wallet', 'shield'];
-    target.innerHTML = DATA.technology.map((item, index) => `
+    const items = Array.isArray(DATA.technology) ? DATA.technology : [];
+    target.innerHTML = items.map((item, index) => `
       <article class="technology-card">
         <div class="technology-card__icon">${COMPONENTS.icon(iconNames[index])}</div>
         <span class="technology-card__eyebrow">${item.eyebrow}</span>
@@ -240,7 +241,8 @@
     const target = qs('[data-service-grid]');
     if (!target) return;
     const iconNames = ['message', 'tag', 'spark', 'steering', 'wrench', 'bank'];
-    target.innerHTML = DATA.services.map((service, index) => `
+    const items = Array.isArray(DATA.services) ? DATA.services : [];
+    target.innerHTML = items.map((service, index) => `
       <article class="service-card">
         <div class="service-card__icon">${COMPONENTS.icon(iconNames[index])}</div>
         <h3>${service.title}</h3>
@@ -251,7 +253,9 @@
   function initNews() {
     const target = qs('[data-news-grid]');
     if (!target) return;
-    const [featured, ...others] = DATA.news;
+    const items = Array.isArray(DATA.news) ? DATA.news : [];
+    if (!items.length) { target.innerHTML = '<p class="content-empty-state">Tin tức đang được cập nhật.</p>'; return; }
+    const [featured, ...others] = items;
     const renderDate = date => new Intl.DateTimeFormat('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(`${date}T00:00:00`));
     target.innerHTML = `
       <article class="news-featured">
@@ -641,7 +645,7 @@
   }
 
   function syncVehiclePrice(select, input) {
-    const vehicle = DATA.vehicles.find(item => item.name === select.value);
+    const vehicle = (Array.isArray(DATA.vehicles) ? DATA.vehicles : []).find(item => item.name === select.value);
     if (vehicle?.price) input.value = vehicle.price.toLocaleString('vi-VN');
   }
 
@@ -719,10 +723,11 @@
 
   function initReveal() {
     const items = qsa('[data-reveal]');
-    if (!items.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!items.length || typeof IntersectionObserver === 'undefined' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       items.forEach(item => item.classList.add('is-visible'));
       return;
     }
+    document.documentElement.classList.add('reveal-ready');
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -772,7 +777,7 @@
     const vehicles = {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      itemListElement: DATA.vehicles.map((vehicle, index) => ({
+      itemListElement: (Array.isArray(DATA.vehicles) ? DATA.vehicles : []).map((vehicle, index) => ({
         '@type': 'ListItem',
         position: index + 1,
         item: {
@@ -790,12 +795,12 @@
     const faq = {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: DATA.faqs.map(item => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } }))
+      mainEntity: (Array.isArray(DATA.faqs) ? DATA.faqs : []).map(item => ({ '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer } }))
     };
     const articles = {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      itemListElement: DATA.news.map((article, index) => ({
+      itemListElement: (Array.isArray(DATA.news) ? DATA.news : []).map((article, index) => ({
         '@type': 'ListItem', position: index + 1,
         item: { '@type': 'Article', headline: article.title, datePublished: article.date, image: `${CONFIG.domain}/${article.image}`, description: article.excerpt, url: article.url.startsWith('http') ? article.url : `${CONFIG.domain}/${article.url}` }
       }))
@@ -809,21 +814,29 @@
   }
 
   function initHomePage() {
-    COMPONENTS.renderSiteShell('home');
-    initHeader();
-    initHeroSlider();
-    initVehicleGrid();
-    initTechnologyCards();
-    initServiceCards();
-    initNews();
-    initMapTabs();
-    initFaq();
-    initModals();
-    initLeadForms();
-    initCalculators();
-    initReveal();
-    setImageFallbacks();
-    createSchemas();
+    const safeInit = (name, initializer) => {
+      try {
+        initializer();
+      } catch (error) {
+        console.error(`[BYD] Không thể khởi tạo ${name}:`, error);
+      }
+    };
+
+    safeInit('khung giao diện', () => COMPONENTS.renderSiteShell('home'));
+    safeInit('header', initHeader);
+    safeInit('hero', initHeroSlider);
+    safeInit('dải sản phẩm', initVehicleGrid);
+    safeInit('công nghệ', initTechnologyCards);
+    safeInit('dịch vụ', initServiceCards);
+    safeInit('tin tức', initNews);
+    safeInit('bản đồ', initMapTabs);
+    safeInit('FAQ', initFaq);
+    safeInit('cửa sổ tư vấn', initModals);
+    safeInit('biểu mẫu', initLeadForms);
+    safeInit('công cụ tính', initCalculators);
+    safeInit('hiệu ứng hiển thị', initReveal);
+    safeInit('ảnh dự phòng', setImageFallbacks);
+    safeInit('dữ liệu SEO', createSchemas);
   }
 
   window.BYD_APP = {

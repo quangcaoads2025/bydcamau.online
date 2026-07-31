@@ -5245,5 +5245,119 @@ window.BYD_DATA = Object.freeze({
         }
       ]
     }
+  ],
+  "technology": [
+    {
+      "title": "Blade Battery",
+      "eyebrow": "An toàn pin",
+      "description": "Cấu trúc pin dạng lưỡi dài giúp tối ưu không gian, quản lý nhiệt và độ vững chắc của bộ pin.",
+      "metric": "Công nghệ lõi BYD"
+    },
+    {
+      "title": "e-Platform 3.0",
+      "eyebrow": "Nền tảng thuần điện",
+      "description": "Tích hợp hệ truyền động, pin, quản lý nhiệt và điện tử trên một kiến trúc chuyên dụng cho xe điện.",
+      "metric": "Thông minh · Hiệu quả · An toàn"
+    },
+    {
+      "title": "DM-i Super Hybrid",
+      "eyebrow": "Hybrid thiên về điện",
+      "description": "Ưu tiên mô-tơ điện trong nhiều tình huống để tạo cảm giác vận hành êm, mượt và hiệu quả.",
+      "metric": "Linh hoạt hành trình"
+    },
+    {
+      "title": "Hỗ trợ lái",
+      "eyebrow": "An toàn chủ động",
+      "description": "Camera, radar, cảm biến và các thuật toán hỗ trợ người lái tùy theo mẫu xe và phiên bản.",
+      "metric": "Cấu hình theo phiên bản"
+    }
+  ],
+  "services": [
+    {
+      "title": "Tư vấn chuyên nghiệp",
+      "description": "Tư vấn nhu cầu, phiên bản và giải pháp sở hữu phù hợp."
+    },
+    {
+      "title": "Giá ưu đãi, giao xe nhanh",
+      "description": "Thông tin rõ ràng, tiến độ giao xe được cập nhật minh bạch."
+    },
+    {
+      "title": "Khuyến mãi hấp dẫn",
+      "description": "Chương trình ưu đãi được xác nhận tại thời điểm đăng ký."
+    },
+    {
+      "title": "Lái thử thuận tiện",
+      "description": "Đặt lịch tại showroom hoặc trao đổi phương án trải nghiệm phù hợp."
+    },
+    {
+      "title": "Bảo hành, bảo dưỡng",
+      "description": "Dịch vụ hậu mãi và phụ tùng theo tiêu chuẩn đại lý chính hãng."
+    },
+    {
+      "title": "Hỗ trợ ngân hàng",
+      "description": "Ước tính khoản vay và kết nối hồ sơ với đối tác tài chính."
+    }
+  ],
+  "news": [
+    {
+      "slug": "khai-truong-showroom-4s",
+      "title": "Khai trương Showroom BYD Thành Công Cà Mau 4S",
+      "date": "2026-03-28",
+      "image": "assets/images/showroom-launch.webp",
+      "excerpt": "Dấu mốc đưa không gian trải nghiệm xe năng lượng mới và dịch vụ hậu mãi 4S đến gần hơn với khách hàng Cà Mau.",
+      "url": "/tin-tuc/?slug=khai-truong-showroom-4s",
+      "category": "Sự kiện đại lý",
+      "content": [
+        "Ngày 27/03/2026, Showroom BYD Thành Công Cà Mau 4S chính thức đi vào hoạt động tại đường Lý Thường Kiệt, phường Tân Thành, Cà Mau.",
+        "Không gian được tổ chức theo mô hình 4S, kết nối hoạt động bán hàng, dịch vụ, phụ tùng chính hãng và tiếp nhận ý kiến khách hàng trong cùng một hành trình trải nghiệm.",
+        "Khách hàng có thể tham quan sản phẩm, trao đổi phương án tài chính, đăng ký lái thử và đặt lịch dịch vụ tại đại lý."
+      ]
+    },
+    {
+      "slug": "ban-giao-xe-byd-atto-2",
+      "title": "Lễ bàn giao xe BYD ATTO 2 tại Cà Mau",
+      "date": "2025-12-29",
+      "image": "assets/images/showroom-hero.webp",
+      "excerpt": "Khoảnh khắc bàn giao BYD ATTO 2 và lời cảm ơn khách hàng đã tin chọn giải pháp di chuyển năng lượng mới.",
+      "url": "/tin-tuc/?slug=ban-giao-xe-byd-atto-2",
+      "category": "Bàn giao xe",
+      "content": [
+        "BYD Thành Công Cà Mau chúc mừng khách hàng hoàn tất thủ tục và nhận bàn giao BYD ATTO 2.",
+        "Trước khi giao xe, đội ngũ đại lý hướng dẫn các thao tác cơ bản, lưu ý sử dụng, thông tin bảo hành và lịch chăm sóc xe.",
+        "Mỗi buổi bàn giao là điểm bắt đầu của quá trình đồng hành sau bán hàng giữa khách hàng và đại lý."
+      ]
+    },
+    {
+      "slug": "trai-nghiem-thuc-te-byd",
+      "title": "Một chuyến đi ngắn, một góc nhìn mới về BYD",
+      "date": "2025-12-15",
+      "image": "assets/images/test-drive-experience.webp",
+      "excerpt": "Trải nghiệm thực tế giúp người lái cảm nhận độ êm, khả năng phản hồi và sự khác biệt của hệ truyền động điện.",
+      "url": "/tin-tuc/?slug=trai-nghiem-thuc-te-byd",
+      "category": "Trải nghiệm",
+      "content": [
+        "Một chuyến lái thử ngắn có thể giúp khách hàng đánh giá trực tiếp độ êm, khả năng tăng tốc, tầm quan sát và cách bố trí các chức năng trên xe.",
+        "Thay vì chỉ xem thông số, người lái nên thử các tình huống sử dụng quen thuộc để xác định mẫu xe và phiên bản phù hợp.",
+        "Lịch lái thử được sắp xếp theo tình trạng xe thực tế tại showroom."
+      ]
+    }
+  ],
+  "faqs": [
+    {
+      "question": "Làm sao nhận báo giá xe BYD tại Cà Mau?",
+      "answer": "Chọn dòng xe, điền họ tên và số điện thoại 10 chữ số trong form nhận báo giá. Đội ngũ tư vấn sẽ xác nhận giá và chương trình áp dụng tại thời điểm liên hệ."
+    },
+    {
+      "question": "Website có tính giá lăn bánh không?",
+      "answer": "Có. Công cụ cho phép nhập giá xe, lệ phí trước bạ, phí biển số, bảo hiểm và các khoản dự kiến. Kết quả chỉ mang tính tham khảo."
+    },
+    {
+      "question": "Có thể ước tính trả góp trên website không?",
+      "answer": "Có. Nhập giá xe, tỷ lệ trả trước, thời hạn vay và lãi suất dự kiến để xem khoản thanh toán hàng tháng theo phương pháp dư nợ giảm dần."
+    },
+    {
+      "question": "Showroom BYD Thành Công Cà Mau ở đâu?",
+      "answer": "Showroom 4S hiện hoạt động tại Số 109, Đường Lý Thường Kiệt, Phường Tân Thành, Cà Mau. Khách hàng nên gọi hotline trước khi đến để được sắp xếp tư vấn hoặc lái thử."
+    }
   ]
 });

@@ -2,7 +2,7 @@
 
 (function () {
   const CONFIG = window.BYD_CONFIG;
-  const DATA = window.BYD_DATA;
+  const DATA = window.BYD_DATA || {};
 
   const icons = {
     phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.62a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.84.29 1.72.5 2.62.62A2 2 0 0 1 22 16.92z"/>',
@@ -67,7 +67,8 @@
 
   function renderHeader(activePage = 'home') {
     const menuOrder = ['byd-dolphin', 'byd-atto-2', 'byd-seal', 'byd-seal-5', 'byd-m6', 'byd-sealion-6', 'byd-han', 'byd-m9'];
-    const menuVehicles = menuOrder.map(slug => DATA.vehicles.find(vehicle => vehicle.slug === slug)).filter(Boolean);
+    const vehicles = Array.isArray(DATA.vehicles) ? DATA.vehicles : [];
+    const menuVehicles = menuOrder.map(slug => vehicles.find(vehicle => vehicle.slug === slug)).filter(Boolean);
     const vehicleItems = menuVehicles.map(vehicle => `
       <a class="mega-menu__vehicle" href="/san-pham/?slug=${vehicle.slug}">
         ${vehicleImage(vehicle, 'mega-menu__image')}
