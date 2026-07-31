@@ -8,8 +8,8 @@ const BYD_VEHICLE_ORDER = Object.freeze({
   "byd-dolphin": 1, // BYD DOLPHIN
   "byd-m6": 2, // BYD M6
   "byd-atto-2": 3, // BYD ATTO 2
-  "byd-sealion-5": 4, // BYD SEALION 5
-  "byd-seal-5": 5, // BYD SEAL 5
+  "byd-sealion-5": 5, // BYD SEALION 5
+  "byd-seal-5": 4, // BYD SEAL 5
   "byd-sealion-6": 9, // BYD SEALION 6
   "byd-m9": 11, // BYD M9
   "byd-atto-3": 8, // BYD ATTO 3
