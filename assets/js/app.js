@@ -875,12 +875,13 @@
   }
 })();
 
-/* Responsive title fitting v7: exact DOM measurement, no canvas estimates. */
+
+/* Smart title fitting v6: prevent a one-word orphan on the final line. */
 (function () {
   'use strict';
 
   const TITLE_SELECTOR = [
-    '.hero__copy h1',
+    '.hero-content h1',
     '.section-heading h2',
     '.showroom-content h2',
     '.offer-visual__content h2',
@@ -893,7 +894,6 @@
     '.source-gallery-section > .section-heading h2',
     '.source-details-section > .section-heading h2',
     '.vehicle-offer h2',
-    '.related-vehicles .section-heading h2',
     '.news-featured h3',
     '.news-card h3',
     '.news-hub-hero h1',
@@ -905,76 +905,118 @@
     '.calculator__header h2'
   ].join(',');
 
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
   let scheduled = false;
   let resizeTimer = 0;
 
-  function renderedLines(element) {
-    const words = [];
-    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
-    let node;
+  function wordsOf(element) {
+    return String(element.textContent || '').trim().split(/\s+/).filter(Boolean);
+  }
 
-    while ((node = walker.nextNode())) {
-      const value = node.nodeValue || '';
-      const matcher = /\S+/g;
-      let match;
-      while ((match = matcher.exec(value))) {
-        const range = document.createRange();
-        range.setStart(node, match.index);
-        range.setEnd(node, match.index + match[0].length);
-        const rect = range.getBoundingClientRect();
-        if (rect.width > 0 && rect.height > 0) words.push({ word: match[0], top: rect.top });
-      }
-    }
+  function fontString(style, size) {
+    const family = style.fontFamily || 'sans-serif';
+    const weight = style.fontWeight || '400';
+    const fontStyle = style.fontStyle || 'normal';
+    return `${fontStyle} ${weight} ${size}px ${family}`;
+  }
 
+  function wordWidth(word, style, size) {
+    context.font = fontString(style, size);
+    const spacing = Number.parseFloat(style.letterSpacing) || 0;
+    return context.measureText(word).width + Math.max(0, word.length - 1) * spacing;
+  }
+
+  function layoutWords(element, size) {
+    const style = window.getComputedStyle(element);
+    const words = wordsOf(element);
+    const width = element.getBoundingClientRect().width;
+    if (!words.length || width < 40) return [];
+
+    const spaceWidth = wordWidth(' ', style, size);
     const lines = [];
-    words.forEach(item => {
-      let line = lines.find(candidate => Math.abs(candidate.top - item.top) < 2);
-      if (!line) {
-        line = { top: item.top, words: [] };
-        lines.push(line);
+    let current = [];
+    let currentWidth = 0;
+
+    words.forEach(word => {
+      const widthOfWord = wordWidth(word, style, size);
+      const nextWidth = current.length ? currentWidth + spaceWidth + widthOfWord : widthOfWord;
+      if (current.length && nextWidth > width + 0.5) {
+        lines.push(current);
+        current = [word];
+        currentWidth = widthOfWord;
+      } else {
+        current.push(word);
+        currentWidth = nextWidth;
       }
-      line.words.push(item.word);
     });
+    if (current.length) lines.push(current);
     return lines;
   }
 
+  function restoreLastPair(element) {
+    if (element.dataset.smartTitlePair !== 'true') return;
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.nodeValue?.includes('\u00a0')) node.nodeValue = node.nodeValue.replace(/\u00a0/g, ' ');
+    }
+    element.removeAttribute('data-smart-title-pair');
+  }
+
+  function keepLastPairTogether(element) {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let node;
+    while ((node = walker.nextNode())) nodes.push(node);
+    for (let index = nodes.length - 1; index >= 0; index -= 1) {
+      const value = nodes[index].nodeValue || '';
+      if (!/\S+\s+\S+\s*$/.test(value)) continue;
+      nodes[index].nodeValue = value.replace(/(\S+)\s+(\S+)\s*$/, '$1\u00a0$2');
+      element.dataset.smartTitlePair = 'true';
+      return true;
+    }
+    return false;
+  }
+
   function fitTitle(element) {
-    if (!(element instanceof HTMLElement) || !element.isConnected) return;
-
+    if (!(element instanceof HTMLElement)) return;
+    element.classList.add('smart-title');
+    restoreLastPair(element);
     element.style.removeProperty('font-size');
-    element.removeAttribute('data-title-fitted');
 
-    if (element.getClientRects().length === 0) return;
-    const initial = renderedLines(element);
-    if (initial.length < 2 || initial[initial.length - 1].words.length !== 1) return;
+    const words = wordsOf(element);
+    if (words.length < 4 || element.getClientRects().length === 0) return;
 
-    const baseSize = Number.parseFloat(getComputedStyle(element).fontSize);
+    const style = window.getComputedStyle(element);
+    const baseSize = Number.parseFloat(style.fontSize);
     if (!Number.isFinite(baseSize) || baseSize < 14) return;
 
-    const isCardTitle = element.matches('.vehicle-card h2,.news-card h3,.seo-news-card h2,.article-related__card h3');
-    const minimumRatio = isCardTitle ? 0.94 : 0.88;
-    const minimumSize = baseSize * minimumRatio;
-    let chosen = null;
+    const initialLines = layoutWords(element, baseSize);
+    if (initialLines.length < 2 || initialLines.at(-1)?.length !== 1) return;
 
-    /* Use the browser's real font shaping and line boxes. The first size
-       that removes the one-word final line is the largest valid size. */
-    for (let size = baseSize - 0.25; size >= minimumSize; size -= 0.25) {
-      element.style.fontSize = `${size.toFixed(2)}px`;
-      const lines = renderedLines(element);
-      if (lines.length && lines[lines.length - 1].words.length >= 2) {
-        chosen = size;
+    // Reduce only a little. The largest size that removes the orphan wins.
+    const minimumSize = baseSize * (baseSize >= 34 ? 0.88 : 0.91);
+    let selectedSize = null;
+    for (let size = baseSize - 0.5; size >= minimumSize; size -= 0.5) {
+      const lines = layoutWords(element, size);
+      if (lines.length && lines.at(-1).length >= 2) {
+        selectedSize = size;
         break;
       }
     }
 
-    if (chosen !== null) {
-      element.style.fontSize = `${chosen.toFixed(2)}px`;
-      element.dataset.titleFitted = 'one-word-orphan';
-    } else {
-      /* Do not insert non-breaking spaces: they caused different wrapping
-         between Safari and Chromium in the previous version. */
-      element.style.removeProperty('font-size');
+    if (selectedSize) {
+      element.style.fontSize = `${selectedSize.toFixed(2)}px`;
+      element.dataset.smartTitleFitted = 'true';
+      return;
     }
+
+    // Extremely long titles may still leave one word. Keep only the final pair
+    // together so the last line contains two words instead of a lone orphan.
+    element.style.fontSize = `${minimumSize.toFixed(2)}px`;
+    keepLastPairTogether(element);
+    element.dataset.smartTitleFitted = 'true';
   }
 
   function fitAllTitles() {
@@ -985,12 +1027,12 @@
   function scheduleFit() {
     if (scheduled) return;
     scheduled = true;
-    requestAnimationFrame(() => requestAnimationFrame(fitAllTitles));
+    window.requestAnimationFrame(() => window.requestAnimationFrame(fitAllTitles));
   }
 
   function start() {
     scheduleFit();
-    document.fonts?.ready?.then(scheduleFit).catch(() => {});
+    if (document.fonts?.ready) document.fonts.ready.then(scheduleFit).catch(() => {});
 
     const observer = new MutationObserver(mutations => {
       if (mutations.some(mutation => mutation.addedNodes.length || mutation.removedNodes.length)) scheduleFit();
@@ -998,12 +1040,16 @@
     observer.observe(document.body, { childList: true, subtree: true });
 
     window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(scheduleFit, 140);
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(scheduleFit, 120);
     }, { passive: true });
+
     window.addEventListener('load', scheduleFit, { once: true });
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start, { once: true });
-  else start();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once: true });
+  } else {
+    start();
+  }
 })();

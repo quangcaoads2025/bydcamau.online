@@ -168,7 +168,7 @@
     return `<section id="gallery-all" class="source-gallery-section">
       <div class="section-heading" data-reveal>
         <span class="eyebrow">Thư viện hình ảnh</span>
-        <h2>Toàn bộ ${vehicle.galleryCount || vehicle.media?.length || 0} hình của <span class="vehicle-name-nowrap">${escapeHtml(vehicle.name)}</span></h2>
+        <h2>Toàn bộ ${vehicle.galleryCount || vehicle.media?.length || 0} hình của ${escapeHtml(vehicle.name)}</h2>
         <p>Ảnh được phân nhóm theo màu xe, ngoại thất, nội thất, công nghệ, vận hành và an toàn để dễ theo dõi.</p>
       </div>
       ${order.filter(kind => groups[kind]?.length).map(kind => `<div class="source-gallery-group" data-reveal>
@@ -255,7 +255,7 @@
         ${renderFullGallery(vehicle)}
         ${renderAllDetails(vehicle)}
         <section id="specifications" class="vehicle-specifications vehicle-specifications--catalog" data-reveal><div class="section-heading section-heading--center"><span class="eyebrow">Thông tin sản phẩm</span><h2>Thông số và trang bị nổi bật</h2><p>Dữ liệu được tổng hợp từ hồ sơ sản phẩm đã cung cấp. Trang bị thực tế có thể thay đổi theo phiên bản và thời điểm phân phối.</p></div>${renderSpecGroups(vehicle)}<div class="vehicle-specifications__actions"><button class="button button--primary" data-open-modal="lead" data-vehicle="${escapeHtml(vehicle.name)}" data-intent="Nhận bảng thông số ${escapeHtml(vehicle.name)}">Nhận bảng thông số</button>${officialLink}</div></section>
-        <section id="offers" class="vehicle-offer vehicle-offer--catalog" data-reveal><div><span class="eyebrow">Ưu đãi theo thời điểm</span><h2>Nhận giá và quà tặng dành riêng cho <span class="vehicle-name-nowrap">${escapeHtml(vehicle.name)}</span></h2><p>Tư vấn viên sẽ xác nhận giá xe, màu đang có, hỗ trợ ngân hàng, quà tặng và thời gian giao xe tại BYD Thành Công Cà Mau.</p></div><div class="vehicle-offer__actions"><button class="button button--primary" data-open-modal="lead" data-vehicle="${escapeHtml(vehicle.name)}" data-intent="Nhận ưu đãi ${escapeHtml(vehicle.name)}">Nhận ưu đãi</button><a class="button button--light" href="${CONFIG.zaloUrl}" target="_blank" rel="noopener">Chat Zalo</a></div></section>
+        <section id="offers" class="vehicle-offer vehicle-offer--catalog" data-reveal><div><span class="eyebrow">Ưu đãi theo thời điểm</span><h2>Nhận giá và quà tặng dành riêng cho ${escapeHtml(vehicle.name)}</h2><p>Tư vấn viên sẽ xác nhận giá xe, màu đang có, hỗ trợ ngân hàng, quà tặng và thời gian giao xe tại BYD Thành Công Cà Mau.</p></div><div class="vehicle-offer__actions"><button class="button button--primary" data-open-modal="lead" data-vehicle="${escapeHtml(vehicle.name)}" data-intent="Nhận ưu đãi ${escapeHtml(vehicle.name)}">Nhận ưu đãi</button><a class="button button--light" href="${CONFIG.zaloUrl}" target="_blank" rel="noopener">Chat Zalo</a></div></section>
         <section class="related-vehicles" data-reveal><div class="section-heading"><span class="eyebrow">Gợi ý khác</span><h2>Khám phá thêm dòng xe BYD</h2></div><div class="vehicle-grid vehicle-grid--related">${[...DATA.vehicles].filter(item => item.slug !== vehicle.slug).sort((a, b) => Number(b.segment === vehicle.segment) - Number(a.segment === vehicle.segment)).slice(0, 3).map(COMPONENTS.renderVehicleCard).join('')}</div></section>
       </main>${renderLightbox(vehicle)}`;
   }
