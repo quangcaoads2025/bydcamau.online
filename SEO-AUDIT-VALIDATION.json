@@ -1,0 +1,18 @@
+{
+  "completed_at": "2026-08-01",
+  "html_pages_checked": 74,
+  "indexable_pages": 46,
+  "noindex_pages": 28,
+  "sitemap_urls": 46,
+  "json_ld_blocks_checked": 121,
+  "product_entities": 10,
+  "product_entities_missing_offer_review_or_rating": 0,
+  "local_asset_references_missing": 0,
+  "javascript_syntax_errors": 0,
+  "sitemap_xml_valid": true,
+  "notes": [
+    "BYD SEALION 5 has no published numeric price in the supplied data, so it is marked as Vehicle only rather than Product.",
+    "No fake review or aggregateRating data was added.",
+    "Performance scores must be remeasured after deployment because hosting cache headers and network conditions affect results."
+  ]
+}
