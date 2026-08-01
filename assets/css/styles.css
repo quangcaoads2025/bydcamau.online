@@ -563,3 +563,98 @@ body.menu-open .mobile-register-cta{opacity:0;visibility:hidden;pointer-events:n
     white-space:nowrap;
   }
 }
+
+
+/* Smart title wrapping v6
+   - Uses the full available width before wrapping.
+   - Avoids a single orphan word on the last line by gently reducing size.
+   - Keeps natural 2–3 word final lines and never splits words. */
+.title-break{display:none!important}
+
+.hero-content h1,
+.section-heading h2,
+.showroom-content h2,
+.offer-visual__content h2,
+.offer-form-wrap h3,
+.contact-info h2,
+.vehicle-card h2,
+.vehicle-summary h1.vehicle-summary__title,
+.source-story__content h3,
+.vehicle-specifications > .section-heading h2,
+.source-gallery-section > .section-heading h2,
+.source-details-section > .section-heading h2,
+.vehicle-offer h2,
+.news-featured h3,
+.news-card h3,
+.news-hub-hero h1,
+.seo-news-card h2,
+.article-hero h1,
+.article-body h2,
+.article-related__card h3,
+.modal__intro h2,
+.calculator__header h2{
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:normal;
+  word-break:normal;
+  hyphens:none;
+  text-wrap:pretty;
+}
+
+.hero-content h1 a,
+.section-heading h2 a,
+.showroom-content h2 a,
+.offer-visual__content h2 a,
+.offer-form-wrap h3 a,
+.contact-info h2 a,
+.vehicle-card h2 a,
+.vehicle-summary h1.vehicle-summary__title a,
+.source-story__content h3 a,
+.vehicle-offer h2 a,
+.news-featured h3 a,
+.news-card h3 a,
+.article-hero h1 a,
+.article-body h2 a,
+.article-related__card h3 a{
+  text-wrap:inherit;
+  overflow-wrap:inherit;
+  word-break:inherit;
+}
+
+.smart-title{
+  max-width:100%!important;
+  white-space:normal!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+  text-wrap:pretty;
+}
+
+/* Let product names use the whole text column instead of a fixed character width. */
+.vehicle-summary h1.vehicle-summary__title,
+.vehicle-summary h1.vehicle-summary__title--long{
+  max-width:100%!important;
+  white-space:normal!important;
+}
+
+@media (max-width:768px){
+  .section-heading,
+  .article-hero__inner,
+  .vehicle-summary,
+  .source-story__content{
+    min-width:0;
+  }
+  .smart-title{
+    line-height:1.06;
+  }
+  .vehicle-summary h1.vehicle-summary__title,
+  .vehicle-summary h1.vehicle-summary__title--long{
+    line-height:1;
+  }
+  .vehicle-card h2,
+  .news-card h3,
+  .news-featured h3,
+  .article-related__card h3{
+    line-height:1.22;
+  }
+}

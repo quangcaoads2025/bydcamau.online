@@ -874,3 +874,182 @@
     document.addEventListener('DOMContentLoaded', initHomePage);
   }
 })();
+
+
+/* Smart title fitting v6: prevent a one-word orphan on the final line. */
+(function () {
+  'use strict';
+
+  const TITLE_SELECTOR = [
+    '.hero-content h1',
+    '.section-heading h2',
+    '.showroom-content h2',
+    '.offer-visual__content h2',
+    '.offer-form-wrap h3',
+    '.contact-info h2',
+    '.vehicle-card h2',
+    '.vehicle-summary__title',
+    '.source-story__content h3',
+    '.vehicle-specifications > .section-heading h2',
+    '.source-gallery-section > .section-heading h2',
+    '.source-details-section > .section-heading h2',
+    '.vehicle-offer h2',
+    '.news-featured h3',
+    '.news-card h3',
+    '.news-hub-hero h1',
+    '.seo-news-card h2',
+    '.article-hero h1',
+    '.article-body h2',
+    '.article-related__card h3',
+    '.modal__intro h2',
+    '.calculator__header h2'
+  ].join(',');
+
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+  let scheduled = false;
+  let resizeTimer = 0;
+
+  function wordsOf(element) {
+    return String(element.textContent || '').trim().split(/\s+/).filter(Boolean);
+  }
+
+  function fontString(style, size) {
+    const family = style.fontFamily || 'sans-serif';
+    const weight = style.fontWeight || '400';
+    const fontStyle = style.fontStyle || 'normal';
+    return `${fontStyle} ${weight} ${size}px ${family}`;
+  }
+
+  function wordWidth(word, style, size) {
+    context.font = fontString(style, size);
+    const spacing = Number.parseFloat(style.letterSpacing) || 0;
+    return context.measureText(word).width + Math.max(0, word.length - 1) * spacing;
+  }
+
+  function layoutWords(element, size) {
+    const style = window.getComputedStyle(element);
+    const words = wordsOf(element);
+    const width = element.getBoundingClientRect().width;
+    if (!words.length || width < 40) return [];
+
+    const spaceWidth = wordWidth(' ', style, size);
+    const lines = [];
+    let current = [];
+    let currentWidth = 0;
+
+    words.forEach(word => {
+      const widthOfWord = wordWidth(word, style, size);
+      const nextWidth = current.length ? currentWidth + spaceWidth + widthOfWord : widthOfWord;
+      if (current.length && nextWidth > width + 0.5) {
+        lines.push(current);
+        current = [word];
+        currentWidth = widthOfWord;
+      } else {
+        current.push(word);
+        currentWidth = nextWidth;
+      }
+    });
+    if (current.length) lines.push(current);
+    return lines;
+  }
+
+  function restoreLastPair(element) {
+    if (element.dataset.smartTitlePair !== 'true') return;
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.nodeValue?.includes('\u00a0')) node.nodeValue = node.nodeValue.replace(/\u00a0/g, ' ');
+    }
+    element.removeAttribute('data-smart-title-pair');
+  }
+
+  function keepLastPairTogether(element) {
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    let node;
+    while ((node = walker.nextNode())) nodes.push(node);
+    for (let index = nodes.length - 1; index >= 0; index -= 1) {
+      const value = nodes[index].nodeValue || '';
+      if (!/\S+\s+\S+\s*$/.test(value)) continue;
+      nodes[index].nodeValue = value.replace(/(\S+)\s+(\S+)\s*$/, '$1\u00a0$2');
+      element.dataset.smartTitlePair = 'true';
+      return true;
+    }
+    return false;
+  }
+
+  function fitTitle(element) {
+    if (!(element instanceof HTMLElement)) return;
+    element.classList.add('smart-title');
+    restoreLastPair(element);
+    element.style.removeProperty('font-size');
+
+    const words = wordsOf(element);
+    if (words.length < 4 || element.getClientRects().length === 0) return;
+
+    const style = window.getComputedStyle(element);
+    const baseSize = Number.parseFloat(style.fontSize);
+    if (!Number.isFinite(baseSize) || baseSize < 14) return;
+
+    const initialLines = layoutWords(element, baseSize);
+    if (initialLines.length < 2 || initialLines.at(-1)?.length !== 1) return;
+
+    // Reduce only a little. The largest size that removes the orphan wins.
+    const minimumSize = baseSize * (baseSize >= 34 ? 0.88 : 0.91);
+    let selectedSize = null;
+    for (let size = baseSize - 0.5; size >= minimumSize; size -= 0.5) {
+      const lines = layoutWords(element, size);
+      if (lines.length && lines.at(-1).length >= 2) {
+        selectedSize = size;
+        break;
+      }
+    }
+
+    if (selectedSize) {
+      element.style.fontSize = `${selectedSize.toFixed(2)}px`;
+      element.dataset.smartTitleFitted = 'true';
+      return;
+    }
+
+    // Extremely long titles may still leave one word. Keep only the final pair
+    // together so the last line contains two words instead of a lone orphan.
+    element.style.fontSize = `${minimumSize.toFixed(2)}px`;
+    keepLastPairTogether(element);
+    element.dataset.smartTitleFitted = 'true';
+  }
+
+  function fitAllTitles() {
+    scheduled = false;
+    document.querySelectorAll(TITLE_SELECTOR).forEach(fitTitle);
+  }
+
+  function scheduleFit() {
+    if (scheduled) return;
+    scheduled = true;
+    window.requestAnimationFrame(() => window.requestAnimationFrame(fitAllTitles));
+  }
+
+  function start() {
+    scheduleFit();
+    if (document.fonts?.ready) document.fonts.ready.then(scheduleFit).catch(() => {});
+
+    const observer = new MutationObserver(mutations => {
+      if (mutations.some(mutation => mutation.addedNodes.length || mutation.removedNodes.length)) scheduleFit();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(scheduleFit, 120);
+    }, { passive: true });
+
+    window.addEventListener('load', scheduleFit, { once: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', start, { once: true });
+  } else {
+    start();
+  }
+})();
