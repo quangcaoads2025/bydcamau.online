@@ -119,7 +119,7 @@
         <div class="vehicle-color-list">
           ${colors.map((color, index) => {
             const image = mediaAttrs(color.image, '');
-            return `<button type="button" class="color-swatch-catalog ${index === 0 ? 'is-active' : ''}" style="--swatch:${escapeHtml(color.hex)}" data-vehicle-color="${escapeHtml(color.name)}" data-vehicle-color-hex="${escapeHtml(color.hex)}" data-color-image="${escapeHtml(image.src)}" data-color-fallback="assets/images/hero-vehicle.webp" aria-label="Chọn màu ${escapeHtml(color.name)}" title="${escapeHtml(color.name)}"><i></i><span>${escapeHtml(color.name)}</span></button>`;
+            return `<button type="button" class="color-swatch-catalog ${index === 0 ? 'is-active' : ''}" aria-pressed="${index === 0 ? 'true' : 'false'}" style="--swatch:${escapeHtml(color.hex)}" data-vehicle-color="${escapeHtml(color.name)}" data-vehicle-color-hex="${escapeHtml(color.hex)}" data-color-image="${escapeHtml(image.src)}" data-color-fallback="assets/images/hero-vehicle.webp" aria-label="Chọn màu ${escapeHtml(color.name)}" title="${escapeHtml(color.name)}"><i></i><span>${escapeHtml(color.name)}</span></button>`;
           }).join('')}
         </div>
         <small>Màu sắc trên màn hình chỉ mang tính minh họa; màu xe thực tế tùy phiên bản và lô xe.</small>
@@ -237,7 +237,7 @@
           <div class="vehicle-gallery-column">${renderGallery(vehicle)}${renderColors(vehicle, 'mobile')}</div>
           <div class="vehicle-summary vehicle-summary--catalog">
             <div class="vehicle-summary__topline"><span class="eyebrow">${escapeHtml(vehicle.segment)} · ${vehicle.powertrain === 'EV' ? 'Thuần điện' : 'DM-i Super Hybrid'}</span><span class="vehicle-summary__availability">${escapeHtml(vehicle.availability || '')}</span></div>
-            <h1>${escapeHtml(vehicle.name)}</h1>
+            <h1 class="vehicle-summary__title ${vehicle.name.length > 13 ? 'vehicle-summary__title--long' : ''}">${escapeHtml(vehicle.name)}</h1>
             <p class="vehicle-summary__tagline">${escapeHtml(vehicle.tagline || '')}</p>
             <div class="vehicle-summary__price-box"><div><small>Giá niêm yết</small><p class="vehicle-summary__price" data-selected-variant-price>${escapeHtml(selectedPrice)}</p></div><span data-selected-variant-name>${escapeHtml(selectedVariant)}</span></div>
             <p class="vehicle-summary__description">${escapeHtml(vehicle.shortDescription)}</p>
@@ -292,7 +292,9 @@
     const mainButton = qs('.vehicle-gallery__main');
     qsa('[data-vehicle-color]').forEach(button => button.addEventListener('click', () => {
       qsa('[data-vehicle-color]').forEach(item => {
-        item.classList.toggle('is-active', item.dataset.vehicleColor === button.dataset.vehicleColor);
+        const selected = item.dataset.vehicleColor === button.dataset.vehicleColor;
+        item.classList.toggle('is-active', selected);
+        item.setAttribute('aria-pressed', selected ? 'true' : 'false');
       });
       const name = button.dataset.vehicleColor || '';
       qsa('[data-selected-color-name]').forEach(item => { item.textContent = name; });

@@ -231,3 +231,335 @@ body.menu-open .mobile-register-cta{opacity:0;visibility:hidden;pointer-events:n
   .vehicle-calculators,
   .vehicle-contact,
   .footer{content-visibility:auto;contain-intrinsic-size:900px}}
+
+/* UI POLISH: BALANCED TITLES + EXTERIOR COLOR SELECTOR (2026-08-01) */
+:where(.section-heading h1,.section-heading h2,.showroom-content h2,.offer-visual__content h2,.vehicle-summary h1,.source-story__content h3,.source-gallery-section .section-heading h2,.source-details-section .section-heading h2,.vehicle-specifications .section-heading h2,.vehicle-offer h2,.related-vehicles .section-heading h2){
+  text-wrap:balance;
+  word-break:normal;
+  overflow-wrap:normal;
+  hyphens:none;
+}
+
+.title-break{display:block}
+
+/* Giữ tiêu đề có nhịp đọc rõ, không chia dòng lẻ hoặc quá dày trên desktop. */
+.vehicle-section__head--catalog .section-heading{max-width:760px}
+.vehicle-section__head--catalog .section-heading h2{
+  max-width:24ch;
+  margin-top:12px;
+  font-size:clamp(2.35rem,3.25vw,3.4rem);
+  line-height:1.035;
+  letter-spacing:-.05em;
+}
+.vehicle-section__head--catalog .section-heading p{max-width:720px;line-height:1.7}
+.showroom-content h2{
+  max-width:20ch;
+  font-size:clamp(2.2rem,3vw,3.1rem);
+  line-height:1.055;
+  letter-spacing:-.045em;
+}
+.offer-visual__content h2{max-width:17ch;line-height:1.06}
+.section-heading--center h2{max-width:19ch;margin-inline:auto}
+
+/* Trang chi tiết xe: tên xe và tiêu đề nội dung có độ lớn đồng nhất, cân dòng. */
+.vehicle-summary__title{
+  max-width:18ch;
+  margin:12px 0 8px;
+  font-size:clamp(2.8rem,3.8vw,3.75rem);
+  line-height:.98;
+  letter-spacing:-.055em;
+}
+.vehicle-summary__title--long{
+  max-width:20ch;
+  font-size:clamp(2.5rem,3.3vw,3.35rem);
+  letter-spacing:-.05em;
+}
+.vehicle-summary__tagline{max-width:38ch;line-height:1.45}
+.source-story-section > .section-heading h2,
+.vehicle-specifications > .section-heading h2{max-width:18ch}
+.source-story__content h3{
+  max-width:15ch;
+  font-size:clamp(2rem,3vw,3rem);
+  line-height:1.055;
+}
+.source-gallery-section > .section-heading h2,
+.source-details-section > .section-heading h2{
+  max-width:18ch;
+  font-size:clamp(2.45rem,4vw,3.75rem);
+  line-height:1.04;
+  letter-spacing:-.05em;
+}
+.vehicle-offer h2{
+  max-width:17ch;
+  font-size:clamp(2.35rem,3.7vw,3.35rem);
+  line-height:1.055;
+  letter-spacing:-.045em;
+}
+.related-vehicles .section-heading h2{max-width:18ch}
+
+/* Bộ chọn màu mới: dạng thẻ rõ ràng, dễ bấm và thẩm mỹ hơn pill nhỏ. */
+.vehicle-summary__colors--catalog{
+  position:relative;
+  margin-top:22px;
+  padding:20px;
+  overflow:hidden;
+  border:1px solid #e3e6e9;
+  border-radius:22px;
+  background:linear-gradient(145deg,#fff 0%,#f8f9fa 100%);
+  box-shadow:0 14px 38px rgba(17,17,17,.055);
+}
+.vehicle-summary__colors--catalog::before{
+  content:"";
+  position:absolute;
+  top:0;
+  right:0;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  transform:translate(46%,-52%);
+  background:radial-gradient(circle,rgba(230,0,18,.1),rgba(230,0,18,0) 70%);
+  pointer-events:none;
+}
+.vehicle-summary__colors--catalog .vehicle-option-heading{
+  position:relative;
+  z-index:1;
+  align-items:center;
+  margin-bottom:15px;
+  padding-bottom:13px;
+  border-bottom:1px solid #e7e9ec;
+}
+.vehicle-summary__colors--catalog .vehicle-option-heading > span{
+  font-size:.82rem;
+  font-weight:900;
+  letter-spacing:.065em;
+}
+.vehicle-summary__colors--catalog .vehicle-option-heading > strong{
+  display:inline-flex;
+  min-height:30px;
+  align-items:center;
+  padding:5px 10px;
+  border:1px solid rgba(230,0,18,.13);
+  border-radius:999px;
+  color:#bd0010;
+  background:#fff1f2;
+  font-size:.74rem;
+  font-weight:850;
+  line-height:1.15;
+  text-align:right;
+}
+.vehicle-summary__colors--catalog .vehicle-color-list{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+  gap:10px;
+  overflow:visible;
+  padding:0;
+}
+.vehicle-summary__colors--catalog .color-swatch-catalog{
+  position:relative;
+  display:flex;
+  width:100%;
+  min-width:0;
+  min-height:54px;
+  align-items:center;
+  justify-content:flex-start;
+  gap:10px;
+  padding:9px 11px;
+  border:1px solid #dde1e5;
+  border-radius:14px;
+  color:#30343a;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 4px 14px rgba(17,17,17,.025);
+  font-size:.78rem;
+  font-weight:800;
+  line-height:1.25;
+  text-align:left;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.vehicle-summary__colors--catalog .color-swatch-catalog:hover{
+  transform:translateY(-1px);
+  border-color:#c8cdd2;
+  box-shadow:0 8px 20px rgba(17,17,17,.06);
+}
+.vehicle-summary__colors--catalog .color-swatch-catalog.is-active{
+  border-color:rgba(230,0,18,.72);
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(230,0,18,.08),0 10px 22px rgba(17,17,17,.05);
+}
+.vehicle-summary__colors--catalog .color-swatch-catalog i{
+  width:31px;
+  height:31px;
+  flex:0 0 31px;
+  border:1px solid rgba(0,0,0,.15);
+  border-radius:50%;
+  background:var(--swatch);
+  box-shadow:inset 0 0 0 3px rgba(255,255,255,.65),0 1px 3px rgba(0,0,0,.08);
+}
+.vehicle-summary__colors--catalog .color-swatch-catalog span{
+  min-width:0;
+  overflow-wrap:anywhere;
+}
+.vehicle-summary__colors--catalog .color-swatch-catalog::after{
+  content:"✓";
+  display:grid;
+  width:21px;
+  height:21px;
+  flex:0 0 21px;
+  place-items:center;
+  margin-left:auto;
+  border-radius:50%;
+  color:#fff;
+  background:var(--red);
+  font-size:.68rem;
+  font-weight:900;
+  opacity:0;
+  transform:scale(.75);
+  transition:opacity .18s ease,transform .18s ease;
+}
+.vehicle-summary__colors--catalog .color-swatch-catalog.is-active::after{opacity:1;transform:scale(1)}
+.vehicle-summary__colors--catalog > small{
+  position:relative;
+  z-index:1;
+  display:block;
+  margin-top:13px;
+  padding-top:12px;
+  border-top:1px dashed #dfe3e6;
+  color:#697078;
+  font-size:.72rem;
+  line-height:1.55;
+}
+
+@media (max-width:1024px){
+  .vehicle-section__head--catalog .section-heading h2{max-width:24ch}
+  .vehicle-summary__colors--mobile{
+    margin:14px 0 24px;
+    padding:19px;
+    border-radius:22px;
+  }
+  .vehicle-summary__colors--mobile .vehicle-color-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:10px;
+    overflow:visible;
+    padding:0;
+    scroll-snap-type:none;
+  }
+  .vehicle-summary__colors--mobile .color-swatch-catalog{flex:initial;scroll-snap-align:none}
+}
+
+@media (max-width:768px){
+  .section-heading h2,
+  .showroom-content h2,
+  .offer-visual__content h2{
+    font-size:clamp(2rem,8vw,2.55rem);
+    line-height:1.065;
+    letter-spacing:-.045em;
+  }
+  .vehicle-section__head--catalog .section-heading h2{
+    max-width:100%;
+    font-size:clamp(2.08rem,8.4vw,2.55rem);
+    line-height:1.035;
+  }
+  .vehicle-section__head--catalog .section-heading p{font-size:1rem;line-height:1.65}
+  .showroom-content h2{max-width:100%;font-size:clamp(2.05rem,8.1vw,2.48rem)}
+  .vehicle-summary__title{
+    max-width:14ch;
+    font-size:clamp(2.5rem,10.8vw,3.15rem);
+    line-height:.98;
+  }
+  .vehicle-summary__title--long{
+    max-width:16ch;
+    font-size:clamp(2.15rem,9.25vw,2.7rem);
+    line-height:1;
+  }
+  .vehicle-summary__tagline{font-size:1.05rem;line-height:1.42}
+  .source-story-section > .section-heading h2,
+  .vehicle-specifications > .section-heading h2,
+  .source-gallery-section > .section-heading h2,
+  .source-details-section > .section-heading h2{
+    max-width:15ch;
+    font-size:clamp(2.15rem,8.6vw,2.7rem);
+    line-height:1.045;
+  }
+  .source-story__content h3{
+    max-width:14ch;
+    margin-bottom:16px;
+    font-size:clamp(2rem,8.2vw,2.55rem);
+    line-height:1.045;
+  }
+  .vehicle-offer h2{
+    max-width:14ch;
+    font-size:clamp(2.15rem,8.5vw,2.7rem);
+    line-height:1.045;
+  }
+  .vehicle-summary__colors--catalog{
+    padding:17px 15px;
+    border-radius:20px;
+  }
+  .vehicle-summary__colors--catalog .vehicle-option-heading{
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:13px;
+    padding-bottom:12px;
+  }
+  .vehicle-summary__colors--catalog .vehicle-option-heading > span{font-size:.86rem}
+  .vehicle-summary__colors--catalog .vehicle-option-heading > strong{
+    max-width:62%;
+    margin-left:auto;
+    white-space:normal;
+  }
+  .vehicle-summary__colors--catalog .vehicle-color-list{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+  }
+  .vehicle-summary__colors--catalog .color-swatch-catalog{
+    min-height:55px;
+    padding:9px 10px;
+    font-size:.76rem;
+  }
+  .vehicle-summary__colors--catalog .color-swatch-catalog i{width:29px;height:29px;flex-basis:29px}
+  .vehicle-summary__colors--catalog .color-swatch-catalog::after{width:19px;height:19px;flex-basis:19px}
+  .vehicle-summary__colors--catalog > small{font-size:.72rem;line-height:1.5}
+}
+
+@media (max-width:430px){
+  .vehicle-section__head--catalog .section-heading h2{max-width:100%;font-size:clamp(2rem,8.8vw,2.35rem)}
+  .vehicle-summary__title{font-size:clamp(2.35rem,11vw,2.9rem)}
+  .vehicle-summary__title--long{font-size:clamp(2.05rem,9.5vw,2.45rem)}
+  .vehicle-summary__colors--catalog .vehicle-color-list{grid-template-columns:1fr 1fr}
+  .vehicle-summary__colors--catalog .color-swatch-catalog{gap:8px;font-size:.73rem}
+  .vehicle-summary__colors--catalog .color-swatch-catalog::after{display:none}
+  .vehicle-offer{padding-inline:22px}
+}
+
+
+/* Final title fit: keep vehicle model names on one clean line whenever possible. */
+.vehicle-summary h1.vehicle-summary__title{
+  max-width:none;
+  font-size:clamp(2.7rem,3.4vw,3.45rem);
+  line-height:.98;
+  white-space:nowrap;
+}
+.vehicle-summary h1.vehicle-summary__title--long{
+  max-width:none;
+  font-size:clamp(2.35rem,3vw,3.15rem);
+  white-space:nowrap;
+}
+.vehicle-summary__colors--catalog .vehicle-color-list{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.vehicle-summary__colors--catalog .color-swatch-catalog span{
+  overflow-wrap:normal;
+  word-break:normal;
+}
+@media (max-width:768px){
+  .vehicle-summary h1.vehicle-summary__title{
+    font-size:clamp(2.35rem,10.5vw,2.85rem);
+    white-space:nowrap;
+  }
+  .vehicle-summary h1.vehicle-summary__title--long{
+    font-size:clamp(1.95rem,8.5vw,2.25rem);
+    white-space:nowrap;
+  }
+}
