@@ -1,11 +1,15 @@
 {
   "name": "byd-ca-mau-static-site",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "private": true,
-  "description": "Website tĩnh BYD Thành Công Cà Mau — bản tối ưu banner, bộ lọc dòng xe và thanh điều hướng sản phẩm trên mobile năm 2026.",
+  "description": "Website tĩnh BYD Thành Công Cà Mau — bản tối ưu Lighthouse, accessibility, security headers và responsive images năm 2026.",
   "scripts": {
+    "build": "npm run build:css && npm run build:sri && npm run build:headers && npm run validate",
     "validate": "node tools/validate-site.mjs",
-    "serve": "python3 -m http.server 8080"
+    "serve": "python3 -m http.server 8080",
+    "build:css": "node tools/minify-css.mjs",
+    "build:headers": "node tools/build-headers.mjs",
+    "build:sri": "node tools/add-script-integrity.mjs"
   },
   "engines": {
     "node": ">=18"

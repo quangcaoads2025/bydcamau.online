@@ -57,7 +57,8 @@
     const priority = '';
     const source = assetUrl(vehicle.cardRemote || vehicle.image);
     const small = source.replace(/card\.webp(?:\?.*)?$/, 'card-480.webp');
-    return `<img class="${className}" src="${small}" srcset="${small} 480w, ${source} 768w" sizes="${isCatalogCard ? '(max-width: 760px) calc(100vw - 28px), (max-width: 1024px) 50vw, 390px' : '180px'}" data-fallback="${assetUrl(vehicle.image)}" alt="${vehicle.name} tại BYD Thành Công Cà Mau" width="768" height="432" loading="${loading}" decoding="async"${priority}>`;
+    const large = source.replace(/card\.webp(?:\?.*)?$/, 'card-960.webp');
+    return `<img class="${className}" src="${small}" srcset="${small} 480w, ${source} 768w, ${large} 960w" sizes="${isCatalogCard ? '(max-width: 520px) calc(100vw - 74px), (max-width: 760px) calc(100vw - 52px), (max-width: 1024px) 50vw, 390px' : '180px'}" data-fallback="${assetUrl(vehicle.image)}" alt="${vehicle.name} tại BYD Thành Công Cà Mau" width="960" height="540" loading="${loading}" decoding="async"${priority}>`;
   }
 
   function renderTopbar() {
@@ -73,7 +74,7 @@
             <a href="tel:${CONFIG.hotlineSales}" class="topbar__item"><strong>Kinh doanh:</strong>&nbsp;${formatPhone(CONFIG.hotlineSales)}</a>
             <a href="tel:${CONFIG.hotlineService}" class="topbar__item"><strong>Dịch vụ:</strong>&nbsp;${formatPhone(CONFIG.hotlineService)}</a>
             <a href="${CONFIG.facebookUrl}" target="_blank" rel="noopener" class="topbar__icon social-link social-link--facebook" aria-label="Facebook"><img src="/assets/images/social/facebook.png" alt="" width="18" height="18"></a>
-            <a href="${CONFIG.zaloUrl}" target="_blank" rel="noopener" class="topbar__icon social-link social-link--zalo" aria-label="Zalo"><img src="/assets/images/social/zalo.png" alt="" width="18" height="18"></a>
+            <a href="${CONFIG.zaloUrl}" target="_blank" rel="noopener" class="topbar__icon social-link social-link--zalo" aria-label="Zalo"><img src="/assets/images/social/zalo.svg" alt="" width="18" height="18"></a>
           </div>
         </div>
       </div>`;
@@ -97,7 +98,7 @@
       <header class="site-header" id="site-header">
         <div class="container header__inner">
           <a class="brand" href="/" aria-label="BYD Thành Công Cà Mau - Trang chủ">
-            <img src="/assets/images/logo-byd-thanh-cong.webp" alt="Logo BYD Thành Công Cà Mau" width="520" height="117">
+            <img src="/assets/images/logo-byd-thanh-cong-360.webp" srcset="/assets/images/logo-byd-thanh-cong-360.webp 360w, /assets/images/logo-byd-thanh-cong.webp 520w" sizes="(max-width: 768px) 190px, 240px" alt="Logo BYD Thành Công Cà Mau" width="520" height="117">
           </a>
           <nav class="main-nav" aria-label="Điều hướng chính">
             <a class="nav-link ${activePage === 'home' ? 'is-active' : ''}" href="/">Trang chủ</a>
@@ -129,7 +130,7 @@
         <div class="mobile-menu" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Menu điều hướng">
           <div class="mobile-menu__head">
             <a class="mobile-menu__brand" href="/" aria-label="BYD Thành Công Cà Mau - Trang chủ">
-              <img src="/assets/images/logo-byd-thanh-cong.webp" alt="BYD Thành Công Cà Mau" width="520" height="117">
+              <img src="/assets/images/logo-byd-thanh-cong-360.webp" srcset="/assets/images/logo-byd-thanh-cong-360.webp 360w, /assets/images/logo-byd-thanh-cong.webp 520w" sizes="(max-width: 768px) 190px, 240px" alt="BYD Thành Công Cà Mau" width="520" height="117">
             </a>
             <button type="button" class="mobile-menu__close" aria-label="Đóng menu">${icon('close')}</button>
           </div>
@@ -188,11 +189,11 @@
       <footer class="footer">
         <div class="container footer__grid">
           <div class="footer__brand">
-            <img src="/assets/images/logo-byd-thanh-cong.webp" alt="BYD Thành Công Cà Mau" width="520" height="117">
+            <img src="/assets/images/logo-byd-thanh-cong-360.webp" srcset="/assets/images/logo-byd-thanh-cong-360.webp 360w, /assets/images/logo-byd-thanh-cong.webp 520w" sizes="(max-width: 768px) 190px, 240px" alt="BYD Thành Công Cà Mau" width="520" height="117">
             <p>Đại lý BYD tại Cà Mau, cung cấp tư vấn xe năng lượng mới, đăng ký lái thử, dịch vụ hậu mãi và hỗ trợ tài chính.</p>
             <div class="footer__social">
               <a href="${CONFIG.facebookUrl}" target="_blank" rel="noopener" aria-label="Facebook" class="social-link social-link--facebook"><img src="/assets/images/social/facebook.png" alt="" width="24" height="24"></a>
-              <a href="${CONFIG.zaloUrl}" target="_blank" rel="noopener" aria-label="Zalo" class="social-link social-link--zalo"><img src="/assets/images/social/zalo.png" alt="" width="25" height="25"></a>
+              <a href="${CONFIG.zaloUrl}" target="_blank" rel="noopener" aria-label="Zalo" class="social-link social-link--zalo"><img src="/assets/images/social/zalo.svg" alt="" width="25" height="25"></a>
               <a href="${CONFIG.messengerUrl}" target="_blank" rel="noopener" aria-label="Messenger" class="social-link social-link--messenger"><img src="/assets/images/contact/messenger-contact.svg" alt="" width="25" height="25"></a>
             </div>
           </div>
@@ -216,8 +217,8 @@
             </ul>
           </div>
           <div class="footer__contact">
-            <h3>Thông Tin Liên hệ</h3>
-            <p class="footer__nap"><strong>ShowroomBYD Thành Công Cà Mau</strong><br>Địa chỉ Số: 109, Đường Lý Thường Kiệt, P. Tân Thành, Cà Mau<br>Giờ làm việc: 07:30 – 17:30, Thứ 2 – Chủ nhật<br><a href="https://www.google.com/maps/search/?api=1&amp;query=BYD%20Th%C3%A0nh%20C%C3%B4ng%20C%C3%A0%20Mau%20109%20L%C3%BD%20Th%C6%B0%E1%BB%9Dng%20Ki%E1%BB%87t" target="_blank" rel="noopener">Xem chỉ đường Google Maps</a></p>
+            <h3>Liên hệ</h3>
+            <p class="footer__nap"><strong>BYD Thành Công Cà Mau</strong><br>Số 109, Đường Lý Thường Kiệt, Phường Tân Thành, Cà Mau<br>Giờ làm việc: 07:30 – 17:30, Thứ 2 – Chủ nhật<br><a href="https://www.google.com/maps/search/?api=1&amp;query=BYD%20Th%C3%A0nh%20C%C3%B4ng%20C%C3%A0%20Mau%20109%20L%C3%BD%20Th%C6%B0%E1%BB%9Dng%20Ki%E1%BB%87t" target="_blank" rel="noopener">Xem chỉ đường Google Maps</a></p>
             <a href="tel:${CONFIG.hotlineSales}">${icon('phone')}<span><small>Hotline kinh doanh</small><strong>${formatPhone(CONFIG.hotlineSales)}</strong></span></a>
             <a href="tel:${CONFIG.hotlineService}">${icon('service')}<span><small>Hotline dịch vụ</small><strong>${formatPhone(CONFIG.hotlineService)}</strong></span></a>
             <a href="mailto:${CONFIG.email}">${icon('message')}<span><small>Email</small><strong>${CONFIG.email}</strong></span></a>
@@ -243,7 +244,7 @@
           <span class="contact-fab__label">Gọi điện</span>
         </a>
         <a href="${CONFIG.zaloUrl}" target="_blank" rel="noopener" class="contact-fab contact-fab--social contact-fab--zalo" aria-label="Chat Zalo">
-          <span class="contact-fab__core"><img src="/assets/images/social/zalo.png?v=20" alt="" width="36" height="36"></span>
+          <span class="contact-fab__core"><img src="/assets/images/social/zalo.svg" alt="" width="36" height="36"></span>
           <span class="contact-fab__label">Zalo</span>
         </a>
         <a href="${CONFIG.messengerUrl}" target="_blank" rel="noopener" class="contact-fab contact-fab--social contact-fab--messenger" aria-label="Chat Messenger">
@@ -280,7 +281,7 @@
             </div>
             <div class="lead-modal__logo-stage" aria-hidden="true">
               <span class="lead-modal__logo-glow"></span>
-              <img src="/assets/images/logo-byd-thanh-cong.webp" alt="" width="250" height="54">
+              <img src="/assets/images/logo-byd-thanh-cong-360.webp" srcset="/assets/images/logo-byd-thanh-cong-360.webp 360w, /assets/images/logo-byd-thanh-cong.webp 520w" sizes="(max-width: 768px) 190px, 240px" alt="" width="250" height="54">
               <small>BYD THÀNH CÔNG CÀ MAU</small>
             </div>
             <p class="lead-modal__kicker">TƯ VẤN CÁ NHÂN HÓA</p>
@@ -299,7 +300,7 @@
 
           <form class="lead-form" id="modal-lead-form" novalidate>
             <div class="lead-modal__form-head">
-              <img class="lead-modal__form-logo" src="/assets/images/logo-byd-thanh-cong.webp" alt="BYD Thành Công Cà Mau" width="150" height="32">
+              <img class="lead-modal__form-logo" src="/assets/images/logo-byd-thanh-cong-360.webp" srcset="/assets/images/logo-byd-thanh-cong-360.webp 360w, /assets/images/logo-byd-thanh-cong.webp 520w" sizes="(max-width: 768px) 190px, 240px" alt="BYD Thành Công Cà Mau" width="150" height="32">
               <span class="lead-modal__step">ĐĂNG KÝ NHANH · KHOẢNG 01 PHÚT</span>
               <h2 id="lead-modal-title">Nhận tư vấn chính xác</h2>
               <p>Điền thông tin bên dưới. Tư vấn viên sẽ liên hệ để xác nhận nhu cầu, không gửi báo giá tự động.</p>

@@ -381,7 +381,13 @@
     const articleMarkup = (article, featuredCard = false) => `
       <article class="${featuredCard ? 'news-featured' : 'news-card'}">
         <a class="${featuredCard ? 'news-featured__image' : 'news-card__image'}" href="${article.url || `/tin-tuc/${article.slug}/`}">
-          <img src="/${String(article.image || '').replace(/^\//, '')}" data-fallback="/assets/images/showroom-hero.webp" alt="${CORE.escapeHtml(article.title)}" width="1200" height="675" loading="${featuredCard ? 'eager' : 'lazy'}" decoding="async">
+          ${(() => {
+            const source = `/${String(article.image || '').replace(/^\//, '')}`;
+            const responsive = source.replace(/\.webp(?:\?.*)?$/, '-768.webp');
+            const medium = source.replace(/\.webp(?:\?.*)?$/, '-1200.webp');
+            const hasResponsive = /(?:showroom-hero|showroom-launch|test-drive-experience)\.webp$/.test(source);
+            return `<img src="${hasResponsive ? responsive : source}"${hasResponsive ? ` srcset="${responsive} 768w, ${medium} 1200w, ${source} 1600w" sizes="${featuredCard ? '(max-width: 768px) calc(100vw - 34px), 62vw' : '(max-width: 768px) 128px, 320px'}"` : ''} data-fallback="/assets/images/showroom-hero.webp" alt="${CORE.escapeHtml(article.title)}" width="1600" height="900" loading="${featuredCard ? 'eager' : 'lazy'}" decoding="async">`;
+          })()}
         </a>
         <div class="${featuredCard ? 'news-featured__body' : 'news-card__body'}">
           <div class="news-card__meta"><span>${CORE.escapeHtml(article.category || 'Tin tức')}</span><time datetime="${article.date}">${formatDate(article.date)}</time></div>
