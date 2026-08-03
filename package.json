@@ -1,0 +1,13 @@
+{
+  "name": "byd-ca-mau-static-site",
+  "version": "2.5.0",
+  "private": true,
+  "description": "Website tĩnh BYD Thành Công Cà Mau — bản tối ưu banner, bộ lọc dòng xe và thanh điều hướng sản phẩm trên mobile năm 2026.",
+  "scripts": {
+    "validate": "node tools/validate-site.mjs",
+    "serve": "python3 -m http.server 8080"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
