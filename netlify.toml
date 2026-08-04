@@ -1,5 +1,0 @@
-[build]
-  publish = "."
-
-# This is a static site. Leave Build command empty in the Netlify UI.
-# Redirects are defined in /_redirects and response headers in /_headers.
