@@ -73,11 +73,20 @@
     const footer = $('.footer');
     let mobileTrap = null;
 
+    let measuredHeaderHeight = 0;
+
+    const syncHeaderHeight = () => {
+      const nextHeight = Math.round(header.getBoundingClientRect().height);
+      if (!nextHeight || nextHeight === measuredHeaderHeight) return;
+      measuredHeaderHeight = nextHeight;
+      document.documentElement.style.setProperty('--site-header-height', `${nextHeight}px`);
+    };
+
+    const updateHeaderSize = rafThrottle(syncHeaderHeight);
     const updateHeader = rafThrottle(() => {
-      const scrolled = window.scrollY > 12;
-      header.classList.toggle('is-scrolled', scrolled);
-      document.documentElement.style.setProperty('--site-header-height', `${header.offsetHeight}px`);
-      if (scrollTopButton) scrollTopButton.classList.toggle('is-visible', window.scrollY > 480);
+      const scrollY = window.scrollY;
+      header.classList.toggle('is-scrolled', scrollY > 12);
+      if (scrollTopButton) scrollTopButton.classList.toggle('is-visible', scrollY > 480);
     });
 
     const closeMegaMenu = () => {
@@ -156,6 +165,7 @@
     window.addEventListener('scroll', updateHeader, { passive: true });
     window.addEventListener('resize', debounce(() => {
       if (window.innerWidth > 1024) closeMobileMenu({ restoreFocus: false });
+      updateHeaderSize();
       updateHeader();
     }, 120), { passive: true });
 
@@ -166,6 +176,7 @@
       footerObserver.observe(footer);
     }
 
+    syncHeaderHeight();
     updateHeader();
   }
 

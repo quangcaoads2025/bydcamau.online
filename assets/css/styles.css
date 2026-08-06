@@ -762,7 +762,7 @@ ul, ol { margin-top: 0; }
 .floating-register-cta__copy strong,
 .floating-register-cta__copy small { display: block; }
 .floating-register-cta__copy strong { font-size: .76rem; font-weight: 800; }
-.floating-register-cta__copy small { margin-top: 2px; opacity: .8; font-size: .58rem; }
+.floating-register-cta__copy small { margin-top: 2px; opacity: 1; font-size: .58rem; }
 .floating-register-cta__arrow { opacity: .78; }
 .floating-register-cta__arrow .icon { width: 14px; height: 14px; }
 
