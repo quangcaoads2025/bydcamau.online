@@ -90,68 +90,42 @@
     return { endpoint, map };
   }
 
-  function postToGoogleForms(payload) {
+  async function postToGoogleForms(payload) {
     const { endpoint, map } = verifyConfiguration();
+    const body = new URLSearchParams();
 
-    return new Promise((resolve, reject) => {
-      const id = `byd-form-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-      const frame = document.createElement('iframe');
-      const transport = document.createElement('form');
-      let submitted = false;
-      let completed = false;
-      let timeout;
-
-      const cleanup = () => {
-        window.clearTimeout(timeout);
-        window.setTimeout(() => {
-          frame.remove();
-          transport.remove();
-        }, 500);
-      };
-
-      const finish = (error) => {
-        if (completed) return;
-        completed = true;
-        cleanup();
-        error ? reject(error) : resolve();
-      };
-
-      frame.name = id;
-      frame.title = 'Kết quả gửi yêu cầu';
-      frame.src = 'about:blank';
-      frame.tabIndex = -1;
-      frame.setAttribute('aria-hidden', 'true');
-      frame.style.cssText = 'position:fixed;width:1px;height:1px;left:-9999px;bottom:0;border:0;opacity:0;pointer-events:none';
-
-      transport.method = 'POST';
-      transport.action = endpoint;
-      transport.target = id;
-      transport.acceptCharset = 'UTF-8';
-      transport.enctype = 'application/x-www-form-urlencoded';
-      transport.hidden = true;
-
-      Object.entries(payload).forEach(([key, value]) => appendHidden(transport, map[key], value));
-      appendHidden(transport, 'fvv', '1');
-      appendHidden(transport, 'draftResponse', '[]');
-      appendHidden(transport, 'pageHistory', '0');
-      appendHidden(transport, 'submit', 'Submit');
-
-      frame.addEventListener('load', () => {
-        if (!submitted) {
-          submitted = true;
-          try {
-            HTMLFormElement.prototype.submit.call(transport);
-          } catch (error) {
-            finish(error);
-          }
-          return;
-        }
-        window.setTimeout(() => finish(), 180);
-      });
-
-      timeout = window.setTimeout(() => finish(new Error('Không nhận được xác nhận từ Google Forms.')), 20000);
-      document.body.append(frame, transport);
+    Object.entries(payload).forEach(([key, value]) => {
+      if (map[key]) body.set(map[key], String(value ?? ''));
     });
+    body.set('fvv', '1');
+    body.set('draftResponse', '[]');
+    body.set('pageHistory', '0');
+    body.set('submit', 'Submit');
+
+    if (!navigator.onLine) throw new Error('Thiết bị đang ngoại tuyến.');
+
+    const controller = typeof AbortController === 'function' ? new AbortController() : null;
+    const timeout = window.setTimeout(() => controller?.abort(), 15000);
+
+    try {
+      await fetch(endpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        credentials: 'omit',
+        cache: 'no-store',
+        redirect: 'follow',
+        keepalive: true,
+        signal: controller?.signal,
+        body
+      });
+    } catch (error) {
+      if (error?.name === 'AbortError') {
+        throw new Error('Kết nối gửi biểu mẫu quá thời gian.');
+      }
+      throw error;
+    } finally {
+      window.clearTimeout(timeout);
+    }
   }
 
   function withinCooldown() {
@@ -214,7 +188,10 @@
       showSuccess(form);
     } catch (error) {
       console.error('[BYD] Lead submission failed:', error);
-      setStatus(form, 'error', 'Chưa gửi được dữ liệu. Vui lòng kiểm tra kết nối hoặc gọi hotline.');
+      const message = navigator.onLine
+        ? 'Chưa gửi được dữ liệu. Vui lòng thử lại hoặc gọi hotline 0848 52 53 52.'
+        : 'Thiết bị đang mất kết nối mạng. Vui lòng kết nối lại rồi gửi.';
+      setStatus(form, 'error', message);
     } finally {
       form.dataset.submitting = 'false';
       button?.removeAttribute('aria-busy');
