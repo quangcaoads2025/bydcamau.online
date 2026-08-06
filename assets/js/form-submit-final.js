@@ -90,42 +90,66 @@
     return { endpoint, map };
   }
 
+  function createGoogleFormRelay(endpoint, fields) {
+    const token = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    const frameName = `byd-google-form-${token}`;
+
+    const iframe = document.createElement('iframe');
+    iframe.name = frameName;
+    iframe.title = 'Gửi biểu mẫu tư vấn';
+    iframe.hidden = true;
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.setAttribute('tabindex', '-1');
+
+    const relay = document.createElement('form');
+    relay.method = 'POST';
+    relay.action = endpoint;
+    relay.target = frameName;
+    relay.acceptCharset = 'UTF-8';
+    relay.hidden = true;
+    relay.setAttribute('aria-hidden', 'true');
+
+    Object.entries(fields).forEach(([name, value]) => appendHidden(relay, name, value));
+
+    document.body.append(iframe, relay);
+    return { iframe, relay };
+  }
+
+  function removeGoogleFormRelay(relay, iframe) {
+    window.setTimeout(() => {
+      relay?.remove();
+      iframe?.remove();
+    }, 30000);
+  }
+
   async function postToGoogleForms(payload) {
     const { endpoint, map } = verifyConfiguration();
-    const body = new URLSearchParams();
-
-    Object.entries(payload).forEach(([key, value]) => {
-      if (map[key]) body.set(map[key], String(value ?? ''));
-    });
-    body.set('fvv', '1');
-    body.set('draftResponse', '[]');
-    body.set('pageHistory', '0');
-    body.set('submit', 'Submit');
-
     if (!navigator.onLine) throw new Error('Thiết bị đang ngoại tuyến.');
 
-    const controller = typeof AbortController === 'function' ? new AbortController() : null;
-    const timeout = window.setTimeout(() => controller?.abort(), 15000);
+    const fieldsToSend = {};
+    Object.entries(payload).forEach(([key, value]) => {
+      if (map[key]) fieldsToSend[map[key]] = String(value ?? '');
+    });
+    fieldsToSend.fvv = '1';
+    fieldsToSend.draftResponse = '[]';
+    fieldsToSend.pageHistory = '0';
+    fieldsToSend.submit = 'Submit';
+
+    const { iframe, relay } = createGoogleFormRelay(endpoint, fieldsToSend);
 
     try {
-      await fetch(endpoint, {
-        method: 'POST',
-        mode: 'no-cors',
-        credentials: 'omit',
-        cache: 'no-store',
-        redirect: 'follow',
-        keepalive: true,
-        signal: controller?.signal,
-        body
-      });
+      HTMLFormElement.prototype.submit.call(relay);
     } catch (error) {
-      if (error?.name === 'AbortError') {
-        throw new Error('Kết nối gửi biểu mẫu quá thời gian.');
-      }
+      relay.remove();
+      iframe.remove();
       throw error;
-    } finally {
-      window.clearTimeout(timeout);
     }
+
+    // Google Forms không cho đọc phản hồi chéo miền. Sau khi trình duyệt đã
+    // nhận lệnh POST, chờ một nhịp ngắn rồi đóng giao diện; không chờ sự kiện
+    // load của iframe vì Safari có thể không phát sự kiện này dù dữ liệu đã gửi.
+    await new Promise(resolve => window.setTimeout(resolve, 700));
+    removeGoogleFormRelay(relay, iframe);
   }
 
   function withinCooldown() {
