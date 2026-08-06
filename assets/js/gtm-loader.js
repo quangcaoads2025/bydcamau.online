@@ -2,7 +2,7 @@
 
 (() => {
   const containerId = 'GTM-5NWJC98F';
-  const interactionEvents = ['pointerdown', 'keydown', 'touchstart'];
+  const interactionEvents = ['pointerdown', 'keydown', 'touchstart', 'scroll'];
   let loaded = false;
   let fallbackTimer;
 
@@ -25,7 +25,5 @@
   }
 
   interactionEvents.forEach(eventName => window.addEventListener(eventName, load, { once: true, passive: true }));
-  window.addEventListener('load', () => {
-    if (!loaded) fallbackTimer = window.setTimeout(load, 12000);
-  }, { once: true });
+  fallbackTimer = window.setTimeout(load, 5000);
 })();
