@@ -245,7 +245,7 @@
           </div>
           <div class="footer__contact">
             <h3>Thông tin liên hệ</h3>
-            <p class="footer__nap"><strong class="footer__showroom-name">Showroom BYD Thành Công</strong><br>Số 109, Đường Lý Thường Kiệt, Phường Tân Thành, Cà Mau<br>Giờ làm việc: 07:30 – 17:30, Thứ 2 – Chủ nhật<br><a href="https://www.google.com/maps/search/?api=1&amp;query=BYD%20Th%C3%A0nh%20C%C3%B4ng%20C%C3%A0%20Mau%20109%20L%C3%BD%20Th%C6%B0%E1%BB%9Dng%20Ki%E1%BB%87t" target="_blank" rel="noopener">Xem chỉ đường Google Maps</a></p>
+            <p class="footer__nap"><strong class="footer__showroom-name">Showroom BYD Thành Công</strong><br>Số 109, Đường Lý Thường Kiệt, Phường Tân Thành, Cà Mau<br>Giờ làm việc: ${CONFIG.businessHours}<br><a href="https://www.google.com/maps/search/?api=1&amp;query=BYD%20Th%C3%A0nh%20C%C3%B4ng%20C%C3%A0%20Mau%20109%20L%C3%BD%20Th%C6%B0%E1%BB%9Dng%20Ki%E1%BB%87t" target="_blank" rel="noopener">Xem chỉ đường Google Maps</a></p>
             <a href="tel:${CONFIG.hotlineSales}">${icon('phone')}<span><small>Hotline kinh doanh</small><strong>${formatPhone(CONFIG.hotlineSales)}</strong></span></a>
             <a href="tel:${CONFIG.hotlineService}">${icon('service')}<span><small>Hotline dịch vụ</small><strong>${formatPhone(CONFIG.hotlineService)}</strong></span></a>
             <a href="mailto:${CONFIG.email}">${icon('message')}<span><small>Email</small><strong>${CONFIG.email}</strong></span></a>

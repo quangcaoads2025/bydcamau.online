@@ -6,7 +6,7 @@ window.BYD_CONFIG = Object.freeze({
   domain: 'https://bydcamau.online',
   language: 'vi-VN',
   currency: 'VND',
-  businessHours: '07:30 – 17:30, Thứ 2 – Chủ nhật',
+  businessHours: '08:00 – 17:30, Thứ 2 – Chủ nhật',
   hotlineSales: '0848525352',
   confirmationHotline: '0848525352',
   hotlineService: '0848525352',
