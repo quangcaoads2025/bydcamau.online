@@ -3,6 +3,8 @@
 window.BYD_CONFIG = Object.freeze({
   siteName: 'BYD Thành Công Cà Mau',
   legalName: 'Công ty TNHH Thương mại Ngọc Anh',
+  businessId: '2000413473',
+  registeredAddress: 'Số 144 Nguyễn Tất Thành, Phường Lý Văn Lâm, Tỉnh Cà Mau, Việt Nam',
   domain: 'https://bydcamau.online',
   language: 'vi-VN',
   currency: 'VND',
@@ -19,13 +21,15 @@ window.BYD_CONFIG = Object.freeze({
   formEndpoint: 'https://docs.google.com/forms/d/e/1FAIpQLSfV7hGUdxsPWhx6vxAo10RFjK1UdmzEPU6lLTKqml1yCam1vA/formResponse',
 
   googleFormFields: Object.freeze({
-  name: 'entry.1106886149',
-  phone: 'entry.1510643676',
-  vehicle: 'entry.1852135421',
-  area: 'entry.944411437'
-}),
+    name: 'entry.1106886149',
+    phone: 'entry.1510643676',
+    vehicle: 'entry.1852135421',
+    area: 'entry.944411437'
+  }),
+
   formCooldownSeconds: 5,
   defaultArea: 'Cà Mau',
+
   showrooms: {
     showroom4s: {
       id: 'showroom4s',
@@ -35,16 +39,33 @@ window.BYD_CONFIG = Object.freeze({
       mapQuery: 'BYD Thành Công Cà Mau 109 Lý Thường Kiệt Cà Mau'
     }
   },
+
+  legalInfo: {
+    operatorLabel: 'Đơn vị vận hành website',
+    operatorName: 'Công ty TNHH Thương mại Ngọc Anh',
+    businessIdLabel: 'Mã số doanh nghiệp',
+    businessId: '2000413473',
+    registeredOfficeLabel: 'Trụ sở đăng ký',
+    registeredOffice: 'Số 144 Nguyễn Tất Thành, Phường Lý Văn Lâm, Tỉnh Cà Mau, Việt Nam',
+    showroomLabel: 'Showroom',
+    showroomName: 'BYD Thành Công Cà Mau – Showroom 4S',
+    showroomAddress: 'Số 109, Đường Lý Thường Kiệt, Phường Tân Thành, Cà Mau',
+    contactEmail: 'kinhdoanh@ngocanhcm.vn',
+    contactPhone: '0848525352'
+  },
+
   seo: {
     homeTitle: 'BYD Cà Mau - Giá lăn bánh, Ưu Đãi & Đăng Ký Lái Thử',
     homeDescription: 'BYD Cà Mau cập nhật bảng giá, giá lăn bánh, ưu đãi và hỗ trợ trả góp các mẫu xe BYD mới nhất. Đăng ký lái thử, gọi 0848 52 53 52.',
     ogImage: '/assets/images/byd-ca-mau-social-share.jpg'
   },
+
   financingDefaults: {
     downPaymentPercent: 30,
     annualRatePercent: 8.5,
     termMonths: 84
   },
+
   registrationDefaults: {
     registrationFeePercent: 0,
     plateFee: 1000000,
