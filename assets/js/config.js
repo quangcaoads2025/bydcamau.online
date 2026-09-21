@@ -2,7 +2,7 @@
 
 window.BYD_CONFIG = Object.freeze({
   siteName: 'BYD Thành Công Cà Mau',
-  legalName: 'BYD Thành Công Cà Mau',
+  legalName: 'Công ty TNHH Thương mại Ngọc Anh',
   domain: 'https://bydcamau.online',
   language: 'vi-VN',
   currency: 'VND',
@@ -10,7 +10,7 @@ window.BYD_CONFIG = Object.freeze({
   hotlineSales: '0848525352',
   confirmationHotline: '0848525352',
   hotlineService: '0848525352',
-  email: 'truyenthongsokm@gmail.com',
+  email: 'kinhdoanh@ngocanhcm.vn',
   zaloUrl: 'https://zalo.me/0848525352',
   messengerUrl: 'https://www.facebook.com/KMtrend.com.vn',
   facebookUrl: 'https://www.facebook.com/KMtrend.com.vn',
