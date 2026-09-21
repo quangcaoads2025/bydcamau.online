@@ -40,20 +40,6 @@ window.BYD_CONFIG = Object.freeze({
     }
   },
 
-  legalInfo: {
-    operatorLabel: 'Đơn vị vận hành website',
-    operatorName: 'Công ty TNHH Thương mại Ngọc Anh',
-    businessIdLabel: 'Mã số doanh nghiệp',
-    businessId: '2000413473',
-    registeredOfficeLabel: 'Trụ sở đăng ký',
-    registeredOffice: 'Số 144 Nguyễn Tất Thành, Phường Lý Văn Lâm, Tỉnh Cà Mau, Việt Nam',
-    showroomLabel: 'Showroom',
-    showroomName: 'BYD Thành Công Cà Mau – Showroom 4S',
-    showroomAddress: 'Số 109, Đường Lý Thường Kiệt, Phường Tân Thành, Cà Mau',
-    contactEmail: 'kinhdoanh@ngocanhcm.vn',
-    contactPhone: '0848525352'
-  },
-
   seo: {
     homeTitle: 'BYD Cà Mau - Giá lăn bánh, Ưu Đãi & Đăng Ký Lái Thử',
     homeDescription: 'BYD Cà Mau cập nhật bảng giá, giá lăn bánh, ưu đãi và hỗ trợ trả góp các mẫu xe BYD mới nhất. Đăng ký lái thử, gọi 0848 52 53 52.',
