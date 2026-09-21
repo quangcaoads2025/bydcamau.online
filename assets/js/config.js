@@ -1,4 +1,4 @@
- 'use strict';
+'use strict';
 
 window.BYD_CONFIG = Object.freeze({
   siteName: 'BYD Thành Công Cà Mau',
@@ -19,11 +19,11 @@ window.BYD_CONFIG = Object.freeze({
   formEndpoint: 'https://docs.google.com/forms/d/e/1FAIpQLSfV7hGUdxsPWhx6vxAo10RFjK1UdmzEPU6lLTKqml1yCam1vA/formResponse',
 
   googleFormFields: Object.freeze({
-  name: 'entry.1106886149',
-  phone: 'entry.1510643676',
-  vehicle: 'entry.1852135421',
-  area: 'entry.944411437'
-}),
+    name: 'entry.1106886149',
+    phone: 'entry.1510643676',
+    vehicle: 'entry.1852135421',
+    area: 'entry.944411437'
+  }),
   formCooldownSeconds: 5,
   defaultArea: 'Cà Mau',
   showrooms: {
